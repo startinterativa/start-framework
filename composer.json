@@ -1,0 +1,17 @@
+{
+    "name": "startinterativa/start-framework",
+    "authors": [{
+        "name": "vitormarcelino",
+        "email": "vitormarcelino93@gmail.com"
+    }],
+    "require": {
+        "twig/twig": "~2.0",
+        "phpmailer/phpmailer": "^5.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "StartInterativa\\Controller\\": "Classes/Controller/",
+            "StartInterativa\\Model\\": "Classes/Model/"
+        }
+    }
+}
