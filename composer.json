@@ -10,6 +10,7 @@
     },
     "autoload": {
         "psr-4": {
+            "StartInterativa\\StartFramework\\Core\\Configuration\\": "Core/Configuration/",
             "StartInterativa\\StartFramework\\Support\\": "Classes/Support/",
             "StartInterativa\\StartFramework\\Base\\": "Classes/Base/"
         }

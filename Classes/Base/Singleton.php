@@ -1,10 +1,9 @@
 <?php
     namespace StartInterativa\StartFramework\Base;
 
-    class Singleton   {
+    class Singleton {
 
         public static $instances = array();
-        var $helper;
 
         private function __construct() {
         }
@@ -15,11 +14,10 @@
         private function __wakeup() {
         }
 
-        public static function getInstance($helper) {
+        public static function getInstance() {
             $class = get_called_class();
             if (!isset(self::$instances[$class])) {
                 self::$instances[$class] = new $class();
-                self::$instances[$class]->helper = $helper;
             }
 
             return self::$instances[$class];

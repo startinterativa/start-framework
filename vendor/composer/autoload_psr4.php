@@ -7,5 +7,6 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'StartInterativa\\StartFramework\\Support\\' => array($baseDir . '/Classes/Support'),
-    'StartInterativa\\StartFramework\\Base\\' => array($baseDir . '/Classes/Model'),
+    'StartInterativa\\StartFramework\\Core\\Configuration\\' => array($baseDir . '/Core/Configuration'),
+    'StartInterativa\\StartFramework\\Base\\' => array($baseDir . '/Classes/Base'),
 );
