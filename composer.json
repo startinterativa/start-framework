@@ -10,8 +10,8 @@
     },
     "autoload": {
         "psr-4": {
-            "StartInterativa\\Controller\\": "Classes/Controller/",
-            "StartInterativa\\Model\\": "Classes/Model/"
+            "StartInterativa\\StartFramework\\Support\\": "Classes/Support/",
+            "StartInterativa\\StartFramework\\Base\\": "Classes/Model/"
         }
     }
 }
