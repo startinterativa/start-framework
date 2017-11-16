@@ -4,23 +4,21 @@
     class Controller {
         
         var $helper;
-        // var $usuarioDAO;
-        // var $postagemDAO;
-        // var $feedbackDAO;
-        // var $clienteDAO;
-        // var $pautaDAO;
-        // var $planejamentoDAO;
-        // var $redesSociaisDAO;
-        // var $methods;
-        // var $data;
-        // var $defaultAction;
-        // var $page;
+        var $methods;
+        var $dao;
+        var $data;
+        var $defaultAction;
+        var $page;
 
         function __construct() {
             $this->helper = \StartInterativa\StartFramework\Support\Helper::getInstance();
-            $teste = \StartInterativa\StartFramework\Core\Configuration\Load::getDaoClasses();
-            var_dump($teste);die;
-            
+            $config = \StartInterativa\StartFramework\Core\Configuration\Load::getConfig();
+            $this->dao = array();
+            if(isset($config['Classes']['DAO'])) {
+                foreach ($config['Classes']['DAO'] as $dao => $namespace) {
+                    $this->dao[$dao] = $namespace::getInstance();
+                }
+            }
         }
 
         public function process($method) {
@@ -73,7 +71,7 @@
             }
 
             if($this->helper->isAllowedUser(array('admin','redator'), false)) {
-                $data['header']['revisao']['count'] = $this->postagemDAO->count(array('status' => '0', 'single' => true));
+                $data['header']['revisao']['count'] = $this->dao['postagem']->count(array('status' => '0', 'single' => true));
             }
 
             if($_SESSION['login']['tipo'] == 'cliente') {

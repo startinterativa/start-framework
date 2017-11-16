@@ -3,8 +3,9 @@
 
     class Load {
         
-        public static function getDaoClasses() {
-            return array('1', '2');
+        public static function getConfig() {
+            $mapFile = file_get_contents(SITEROOT.'/config.json');
+            return json_decode($mapFile, true);
         }
         
     }
