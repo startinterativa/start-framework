@@ -11,7 +11,7 @@
     "autoload": {
         "psr-4": {
             "StartInterativa\\StartFramework\\Support\\": "Classes/Support/",
-            "StartInterativa\\StartFramework\\Base\\": "Classes/Model/"
+            "StartInterativa\\StartFramework\\Base\\": "Classes/Base/"
         }
     }
 }
