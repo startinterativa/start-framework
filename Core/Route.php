@@ -2,50 +2,29 @@
     namespace StartInterativa\StartFramework\Core;
     class Route {
         public static function route() {
-            
-            $route = "inicio";
+            $class = "\Controller\Dashboard";
             if(isset($_GET['route'])) {
                 $route = $_GET['route'];
-            }
-                    
-            $method = "";
-            if(isset($_GET['method'])) {
-                $method = $_GET['method'];
-            }
-            // var_dump($_GET); die;
-            switch ($route) {
-                case 'sair':
+                
+                if($route == 'sair') {
                     session_unset();
                     ob_end_clean();
                     \StartInterativa\StartFramework\Support\Helper::getInstance()->redirect();
-                    break;
-                case 'inicio':
-                    $controller = new \Controller\Dashboard();
-                    break;
-                case 'cliente':
-                    $controller = new \Controller\Cliente();
-                    break;
-                case 'postagem':
-                    $controller = new \Controller\Postagem();
-                    break;
-                case 'revisao':
-                    $controller = new \Controller\Revisao();
-                    break;
-                case 'pauta':
-                    $controller = new \Controller\Pauta();
-                    break;
-                case 'usuario':
-                    $controller = new \Controller\Usuario();
-                    break;
-                case 'planejamento':
-                    $controller = new \Controller\Planejamento();
-                    break;
-                case 'callback':
-                    $controller = new \Controller\Callback();
-                    break;
-                default:
-                    $controller = new \Controller\Dashboard();
-                    break;
+                    exit();
+                }
+                
+                $class = '\Controller\\' . ucfirst($_GET['route']);
+            }
+                        
+            if(class_exists($class)) {
+                $controller = new $class();
+            } else {
+                \StartInterativa\StartFramework\Support\Helper::getInstance()->redirect404();
+            }
+
+            $method = "";
+            if(isset($_GET['method'])) {
+                $method = $_GET['method'];
             }
 
             $controller->process($method);

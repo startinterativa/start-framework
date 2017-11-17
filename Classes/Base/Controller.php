@@ -26,12 +26,15 @@
                 $this->data['header']['login']['tipo'] = $_SESSION['login']['tipo'];
             }
 
-            $this->configProvider = self::getConfigProvider();
             self::processBasicData();
+            
             $action = $this->defaultAction;
-
-            if(isset($this->methods[$method])) {
-                $action = $this->methods[$method];
+            if(!empty($method)) {
+                if(isset($this->methods[$method])) {
+                    $action = $this->methods[$method];
+                } else {
+                    $this->helper->redirect404();
+                }
             }
 
             call_user_func(array($this, $action), 1);
