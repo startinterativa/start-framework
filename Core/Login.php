@@ -15,14 +15,10 @@
                 } else { //FAZENDO LOGIN NA VIEW
                     self::processLogin();
                     $this->helper->renderPage($this->page, $this->data);
-                }
-            } else { // AQUI O USUARIO ESTA LOGADO
-                if(isset($_GET['route'])){
-                    \Controller\Route::route($_GET['route'], $this);
-                } else {
-                    \Controller\Route::route("inicio");
+                    return false;
                 }
             }
+            return true;
         }
 
         public function isLogged() {

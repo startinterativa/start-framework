@@ -12,10 +12,10 @@
 
         function __construct() {
             $this->helper = \StartInterativa\StartFramework\Support\Helper::getInstance();
-            $config = \StartInterativa\StartFramework\Core\Configuration\Load::getConfig();
+            $daoClasses = $GLOBALS['start']['config']->frameworkConfig['Classes']['DAO'];
             $this->dao = array();
-            if(isset($config['Classes']['DAO'])) {
-                foreach ($config['Classes']['DAO'] as $dao => $namespace) {
+            if(isset($daoClasses)) {
+                foreach ($daoClasses as $dao => $namespace) {
                     $this->dao[$dao] = $namespace::getInstance();
                 }
             }
