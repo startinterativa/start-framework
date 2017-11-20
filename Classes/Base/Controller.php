@@ -41,6 +41,7 @@
             }
 
             call_user_func(array($this, $action), 1);
+            $this->processBreadcrumbs($action);
         }
 
         public function render() {
