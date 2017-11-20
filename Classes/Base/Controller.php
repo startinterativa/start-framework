@@ -8,7 +8,9 @@
         var $dao;
         var $data;
         var $defaultAction;
+        var $config;
         var $page;
+        var $params;
 
         function __construct() {
             $this->helper = \StartInterativa\StartFramework\Support\Helper::getInstance();
@@ -26,7 +28,8 @@
                 $this->data['header']['login']['tipo'] = $_SESSION['login']['tipo'];
             }
 
-            self::processBasicData();
+            $this->processBasicData();
+            $this->configure();
             
             $action = $this->defaultAction;
             if(!empty($method)) {
@@ -117,6 +120,17 @@
 
         public function addCSS($path, $comment = false) {
             $this->data['header']['css'][] = array("path" => $path, "comment" => $comment);
+        }
+        
+        private function configure() {
+            if(is_array($this->params)) {
+                foreach ($this->params as $param) {
+                    $this->config[$param] = null;
+                    if(isset($_GET[$param])) {
+                        $this->config[$param] = $_GET[$param];
+                    }
+                }
+            }
         }
 
     }
