@@ -46,6 +46,10 @@
                 $this->processBreadcrumbs($action);
             }
             
+            if (isset($GLOBALS['start']['config']->localConfig['notification']) && $GLOBALS['start']['config']->localConfig['notification']) {
+                $this->addScript('vendor/startinterativa/start-framework/Core/Notification/notification.js', "Notifications");
+            }
+            
         }
 
         public function render() {
