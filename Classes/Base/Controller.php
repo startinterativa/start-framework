@@ -7,7 +7,7 @@
         var $methods;
         var $dao;
         var $data;
-        var $defaultAction;
+        var $action;
         var $config;
         var $page;
         var $params;
@@ -31,19 +31,18 @@
             $this->processBasicData();
             $this->configure();
             
-            $action = $this->defaultAction;
             if(!empty($method)) {
                 if(isset($this->methods[$method])) {
-                    $action = $this->methods[$method];
+                    $this->action = $this->methods[$method];
                 } else {
                     $this->helper->redirect404();
                 }
             }
 
-            call_user_func(array($this, $action), 1);
+            call_user_func(array($this, $this->action), 1);
             
             if (method_exists($this, 'processBreadcrumbs')) {
-                $this->processBreadcrumbs($action);
+                $this->processBreadcrumbs();
             }
             
             if (isset($GLOBALS['start']['config']->localConfig['notification']) && $GLOBALS['start']['config']->localConfig['notification']) {

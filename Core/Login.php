@@ -4,7 +4,7 @@
 
         function __construct() {
             parent::__construct();
-            $this->defaultAction = "processLogin";
+            $this->action = "processLogin";
             $this->methods = ["login"=>"processLogin"];
         }
 

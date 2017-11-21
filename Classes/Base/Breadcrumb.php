@@ -5,7 +5,7 @@
         var $title;
         var $link;
         
-        public function __construct($title, $link) {
+        public function __construct($title, $link = null) {
             $this->title = $title;
             $this->link = $link;
         }
