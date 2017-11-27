@@ -91,7 +91,7 @@
             if($_SESSION['login']['tipo'] == 'cliente') {
                 $configBasicData['id'] = $_SESSION['login']['id'];
                 $configBasicData['group'] = 'mes_ano';
-                $data['header']['sidebar']['planejameto'] = $this->planejamentoDAO->getResult($configBasicData);
+                $data['header']['sidebar']['planejameto'] = $this->dao['planejamento']->getResult($configBasicData);
             }
 
             $data['footer']['version'] = $this->helper->getProjectVersion();
