@@ -26,7 +26,6 @@
             if(isset($_GET['method'])) {
                 $method = $_GET['method'];
             }
-
             $controller->process($method);
             $controller->render();
         }

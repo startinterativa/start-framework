@@ -7,13 +7,14 @@
         var $twig;
 
         function __construct() {
-            $this->mail = new \Support\Email($this);
+            $this->mail = new \StartInterativa\StartFramework\Support\Email($this);
             $twigPath = SITEROOT . '/View';
 
             $loader = new \Twig_Loader_Filesystem($twigPath);
             $this->twig = new \Twig_Environment($loader, array('debug' => true));
+            var_dump($this->twig); die;
             $this->twig->addExtension(new \Twig_Extension_Debug());
-            $this->twig->addExtension(new \Support\TwigHelper($this->twig, $this));
+            $this->twig->addExtension(new \StartInterativa\StartFramework\Support\TwigHelper($this->twig, $this));
         }
 
         public function encodeArray($array, $to, $from) {

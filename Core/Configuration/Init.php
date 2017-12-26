@@ -3,7 +3,7 @@
 
     class Init {
         
-        var $configFramework;
+        var $frameworkConfig;
         var $localConfig;
         
         public function __construct() {

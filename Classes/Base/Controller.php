@@ -24,9 +24,6 @@
         }
 
         public function process($method) {
-            if (isset($_SESSION['login'])) {
-                $this->data['header']['login']['tipo'] = $_SESSION['login']['tipo'];
-            }
 
             $this->processBasicData();
             $this->configure();
@@ -37,6 +34,8 @@
                 } else {
                     $this->helper->redirect404();
                 }
+            } else {
+                $this->action = $this->defaultAction;
             }
 
             call_user_func(array($this, $this->action), 1);
@@ -60,6 +59,7 @@
             $data['header'] = array();
             $data['body'] = array();
             $data['footer'] = array();
+            
 
             if(isset($_COOKIE['alert']) && $_COOKIE['alert'] != '') {
                 $data['header']['alert'] = unserialize($_COOKIE['alert']);
@@ -70,29 +70,46 @@
             if (!isset($_SESSION['login'])) {
                 return $data;
             }
-            $data['body']['login']['tipo'] = $_SESSION['login']['tipo'];
-            $data['header']['login']['tipo'] = $_SESSION['login']['tipo'];
-            $data['header']['login']['empresa'] = $_SESSION['login']['empresa'];
-            $data['header']['login']['usuario'] = $_SESSION['login']['usuario'];
-            $data['header']['login']['imagem'] = $_SESSION['login']['imagem'];
-            $data['header']['login']['id'] = $_SESSION['login']['id'];
+            
+            foreach ($GLOBALS['start']['config']->frameworkConfig['BasicLoginFields'] as $field) {
+                $data['header']['login'][$field] = $_SESSION['login'][$field];
+            }
+            
+            // Adiciona o tipo de login ao data body
+            if (isset($_SESSION['login'])) {
+                $this->data['body']['login']['tipo'] = $_SESSION['login']['tipo'];
+            }
+            
+            // $data['body']['login']['tipo'] = $_SESSION['login']['tipo'];
+            // $data['header']['login']['tipo'] = $_SESSION['login']['tipo'];
+            // $data['header']['login']['empresa'] = $_SESSION['login']['empresa'];
+            // $data['header']['login']['usuario'] = $_SESSION['login']['usuario'];
+            // $data['header']['login']['imagem'] = $_SESSION['login']['imagem'];
+            // $data['header']['login']['id'] = $_SESSION['login']['id'];
 
             $data['header']['base'] = $this->helper->getServerProtocol() . $_SERVER['SERVER_NAME'];
-
-
-            if($this->helper->isAllowedUser(array('admin','designer','redator'), false)) {
-                $data['header']['clientes'] = \Model\DAO\Cliente::getAllClientes();
+            
+            if (class_exists('\\Controller\\SpecificController')) {
+                $specificController = new \Controller\SpecificController();
+                $specificController->helper = $this->helper;
+                $specificController->processBasicData($data);
             }
 
-            if($this->helper->isAllowedUser(array('admin','redator'), false)) {
-                $data['header']['revisao']['count'] = $this->dao['postagem']->count(array('status' => '0', 'single' => true));
-            }
 
-            if($_SESSION['login']['tipo'] == 'cliente') {
-                $configBasicData['id'] = $_SESSION['login']['id'];
-                $configBasicData['group'] = 'mes_ano';
-                $data['header']['sidebar']['planejameto'] = $this->dao['planejamento']->getResult($configBasicData);
-            }
+            // TODO Mover para o SpecificController do start post
+            // if($this->helper->isAllowedUser(array('admin','designer','redator'), false)) {
+            //     $data['header']['clientes'] = \Model\DAO\Cliente::getAllClientes();
+            // }
+            // 
+            // if($this->helper->isAllowedUser(array('admin','redator'), false)) {
+            //     $data['header']['revisao']['count'] = $this->dao['postagem']->count(array('status' => '0', 'single' => true));
+            // }
+            // 
+            // if($_SESSION['login']['tipo'] == 'cliente') {
+            //     $configBasicData['id'] = $_SESSION['login']['id'];
+            //     $configBasicData['group'] = 'mes_ano';
+            //     $data['header']['sidebar']['planejameto'] = $this->dao['planejamento']->getResult($configBasicData);
+            // }
 
             $data['footer']['version'] = $this->helper->getProjectVersion();
             $this->data = $data;
