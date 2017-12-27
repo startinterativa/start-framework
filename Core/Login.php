@@ -14,7 +14,7 @@
                     self::initSession();
                 } else { //FAZENDO LOGIN NA VIEW
                     self::processLogin();
-                    $this->helper->renderPage($this->page, $this->data);
+                    $this->helper->renderPage($this->header, $this->page, $this->data);
                     return false;
                 }
             }

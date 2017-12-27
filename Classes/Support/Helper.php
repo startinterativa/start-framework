@@ -196,10 +196,22 @@
             echo $this->render('general/footer', $data);
         }
 
-        public function renderPage($twig, $data = array()) {
-            self::renderHeader($data['header']);
-            self::render($twig, $data['body']);
-            self::renderFooter($data['footer']);
+        public function renderPage($header, $template, $data = array()) {
+            if ($header == 'pdf') {
+                self::renderPDF($template, $data);
+            } else {
+                self::renderHeader($data['header']);
+                self::render($template, $data['body']);
+                self::renderFooter($data['footer']);
+            }
+        }
+        
+        public function renderPDF($template, $data) {
+            $dompdf = new \Dompdf\Dompdf();
+            $html = self::processHTML($template, $data['body']);
+            $dompdf->loadHtml($html);
+            $dompdf->render();
+            $dompdf->stream("dompdf_out.pdf", array("Attachment" => false));
         }
 
         public function getProjectPath() {

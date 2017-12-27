@@ -9,6 +9,7 @@
         var $data;
         var $action;
         var $config;
+        var $header;
         var $page;
         var $params;
 
@@ -16,6 +17,7 @@
             $this->helper = \StartInterativa\StartFramework\Support\Helper::getInstance();
             $daoClasses = $GLOBALS['start']['config']->frameworkConfig['Classes']['DAO'];
             $this->dao = array();
+            $this->header = 'html';
             if(isset($daoClasses)) {
                 foreach ($daoClasses as $dao => $namespace) {
                     $this->dao[$dao] = $namespace::getInstance();
@@ -51,7 +53,7 @@
         }
 
         public function render() {
-            $this->helper->renderPage($this->page, $this->data);
+            $this->helper->renderPage($this->header, $this->page, $this->data);
         }
 
         private function processBasicData() {
