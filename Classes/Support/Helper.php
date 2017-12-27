@@ -12,7 +12,6 @@
 
             $loader = new \Twig_Loader_Filesystem($twigPath);
             $this->twig = new \Twig_Environment($loader, array('debug' => true));
-            var_dump($this->twig); die;
             $this->twig->addExtension(new \Twig_Extension_Debug());
             $this->twig->addExtension(new \StartInterativa\StartFramework\Support\TwigHelper($this->twig, $this));
         }
@@ -62,6 +61,10 @@
             $ret['hora'] = date('H:i', $timestamp);
             return $ret;
         }
+        
+        public function getMysqlDate($data) {
+            return date("Y-m-d H:i:s",strtotime(str_replace('/','-',$data)));
+        }
 
         public function processDate($date) {
             $arrayDate = explode("/", $date);
@@ -69,6 +72,12 @@
             $processedDate['timestamp'] = strtotime(str_replace("/", "-", $date));
             $processedDate['mesano'] = $arrayDate[1] . "-" . substr($arrayDate[2], 0, 4);
             return $processedDate;
+        }
+        
+        public function getMysqlFloatFormat($number) {
+            $val =  str_replace(".", "", $number);
+            $val =  str_replace(",", ".", $val);
+            return $val;
         }
 
         public function getTextFromPostagemLabel($label) {
