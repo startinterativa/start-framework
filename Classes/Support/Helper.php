@@ -173,7 +173,7 @@
         }
 
         public function getMoneyFormat($val) {
-            return number_format($val,2,",","");
+            return 'R$ ' . number_format($val,2,",",".");
         }
 
         public function renderHeader($data) {

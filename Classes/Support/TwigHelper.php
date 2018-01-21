@@ -63,6 +63,10 @@
         public function getUserPicture() {
             return $_SESSION['login']['imagem'];
         }
+        
+        public function format_real($val) {
+            return $this->helper->getMoneyFormat($val);
+        }
 
         public function getFunctions()
         {
@@ -72,7 +76,8 @@
                 new \Twig_SimpleFunction('getThumb', array($this, 'getThumb'), array('needs_context' => false)),
                 new \Twig_SimpleFunction('getImage', array($this, 'getImage'), array('needs_context' => false, 'pre_escape' => 'html', 'is_safe' => array('html'))),
                 new \Twig_SimpleFunction('getUsername', array($this, 'getUsername'), array('needs_context' => false)),
-                new \Twig_SimpleFunction('getUserPicture', array($this, 'getUserPicture'), array('needs_context' => false))
+                new \Twig_SimpleFunction('getUserPicture', array($this, 'getUserPicture'), array('needs_context' => false)),
+                new \Twig_SimpleFunction('format_real', array($this, 'format_real'), array('needs_context' => false))
     	    );
         }
 
