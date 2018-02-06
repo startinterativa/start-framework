@@ -1,5 +1,5 @@
 <?php
-    namespace vitormarcelino\StartFramework\Core;
+    namespace StartInterativa\StartFramework\Core;
     class Login extends \StartInterativa\StartFramework\Base\Controller {
 
         function __construct() {

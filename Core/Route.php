@@ -1,5 +1,5 @@
 <?php
-    namespace vitormarcelino\StartFramework\Core;
+    namespace StartInterativa\StartFramework\Core;
     class Route {
         public static function route() {
             $class = "\Controller\Dashboard";
