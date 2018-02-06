@@ -1,5 +1,5 @@
 <?php
-    namespace vitormarcelino\StartFramework\Support;
+    namespace StartInterativa\StartFramework\Support;
 
     class TwigHelper extends \Twig_Extension {
 

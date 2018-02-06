@@ -1,5 +1,5 @@
 <?php
-    namespace vitormarcelino\StartFramework\Core;
+    namespace StartInterativa\StartFramework\Core;
     class Database {
 
         private function __construct () {

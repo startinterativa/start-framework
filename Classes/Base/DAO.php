@@ -1,5 +1,5 @@
 <?php
-    namespace vitormarcelino\StartFramework\Base;
+    namespace StartInterativa\StartFramework\Base;
 
     class DAO extends \StartInterativa\StartFramework\Base\Singleton {
         

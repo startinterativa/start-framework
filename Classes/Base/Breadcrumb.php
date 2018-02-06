@@ -1,5 +1,5 @@
 <?php 
-    namespace vitormarcelino\StartFramework\Base;
+    namespace StartInterativa\StartFramework\Base;
     
     class Breadcrumb {
         var $title;
