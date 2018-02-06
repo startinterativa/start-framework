@@ -1,7 +1,7 @@
 {
-    "name": "startinterativa/start-framework",
+    "name": "vitormarcelino/start-framework",
     "authors": [{
-        "name": "vitormarcelino",
+        "name": "Vitor Marcelino",
         "email": "vitormarcelino93@gmail.com"
     }],
     "require": {
