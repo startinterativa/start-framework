@@ -1,5 +1,5 @@
 <?php
-    namespace StartInterativa\StartFramework\Core\Configuration;
+    namespace vitormarcelino\StartFramework\Core\Configuration;
 
     class Init {
         
