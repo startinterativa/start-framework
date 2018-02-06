@@ -1,5 +1,5 @@
 {
-    "name": "vitormarcelino/start-framework",
+    "name": "vitormarcelino/start-php-framework",
     "authors": [{
         "name": "Vitor Marcelino",
         "email": "vitormarcelino93@gmail.com"
@@ -10,10 +10,10 @@
     },
     "autoload": {
         "psr-4": {
-            "StartInterativa\\StartFramework\\Core\\Configuration\\": "Core/Configuration/",
-            "StartInterativa\\StartFramework\\Core\\": "Core/",
-            "StartInterativa\\StartFramework\\Support\\": "Classes/Support/",
-            "StartInterativa\\StartFramework\\Base\\": "Classes/Base/"
+            "vitormarcelino\\StartFramework\\Core\\Configuration\\": "Core/Configuration/",
+            "vitormarcelino\\StartFramework\\Core\\": "Core/",
+            "vitormarcelino\\StartFramework\\Support\\": "Classes/Support/",
+            "vitormarcelino\\StartFramework\\Base\\": "Classes/Base/"
         }
     }
 }
