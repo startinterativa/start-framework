@@ -176,11 +176,11 @@
             return 'R$ ' . number_format($val,2,",",".");
         }
 
-        public function renderHeader($data) {
+        public function renderHeader($twig, $data) {
             if (intval(\Controller\Login::isLogged()) != 0) {
-                echo $this->render('general/header', $data);
+                echo $this->render($twig, $data);
             } else {
-                echo $this->render('general/headerOut', $data);
+                echo $this->render($twig, $data);
             }
         }
 
@@ -192,17 +192,13 @@
             return $this->twig->render($twig.'.twig', $values);
         }
 
-        public function renderFooter($data = array()) {
-            echo $this->render('general/footer', $data);
-        }
-
-        public function renderPage($header, $template, $data = array()) {
-            if ($header == 'pdf') {
-                self::renderPDF($template, $data);
+        public function renderPage(\StartInterativa\StartFramework\Base\Controller $controller) {
+            if ($controller->type == 'pdf') {
+                $this->renderPDF($controller->page, $controller->data);
             } else {
-                self::renderHeader($data['header']);
-                self::render($template, $data['body']);
-                self::renderFooter($data['footer']);
+                $this->renderHeader($controller->header, $controller->data['header']);
+                $this->render($controller->page, $controller->data['body']);
+                $this->render($controller->footer, $controller->data['footer']);
             }
         }
         

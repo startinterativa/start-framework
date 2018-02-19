@@ -9,15 +9,19 @@
         var $data;
         var $action;
         var $config;
+        var $type;
         var $header;
+        var $footer;
         var $page;
         var $params;
 
         function __construct() {
             $this->helper = \StartInterativa\StartFramework\Support\Helper::getInstance();
             $daoClasses = $GLOBALS['start']['config']->frameworkConfig['Classes']['DAO'];
+            $this->type = 'html';
+            $this->header = $GLOBALS['start']['config']->frameworkConfig['defaultHeader'];
+            $this->footer = $GLOBALS['start']['config']->frameworkConfig['defaultFooter'];
             $this->dao = array();
-            $this->header = 'html';
             if(isset($daoClasses)) {
                 foreach ($daoClasses as $dao => $namespace) {
                     $this->dao[$dao] = $namespace::getInstance();
@@ -53,7 +57,7 @@
         }
 
         public function render() {
-            $this->helper->renderPage($this->header, $this->page, $this->data);
+            $this->helper->renderPage($this);
         }
 
         private function processBasicData() {
@@ -82,13 +86,6 @@
                 $this->data['body']['login']['tipo'] = $_SESSION['login']['tipo'];
             }
             
-            // $data['body']['login']['tipo'] = $_SESSION['login']['tipo'];
-            // $data['header']['login']['tipo'] = $_SESSION['login']['tipo'];
-            // $data['header']['login']['empresa'] = $_SESSION['login']['empresa'];
-            // $data['header']['login']['usuario'] = $_SESSION['login']['usuario'];
-            // $data['header']['login']['imagem'] = $_SESSION['login']['imagem'];
-            // $data['header']['login']['id'] = $_SESSION['login']['id'];
-
             $data['header']['base'] = $this->helper->getServerProtocol() . $_SERVER['SERVER_NAME'];
             
             if (class_exists('\\Controller\\SpecificController')) {
@@ -96,22 +93,6 @@
                 $specificController->helper = $this->helper;
                 $specificController->processBasicData($data);
             }
-
-
-            // TODO Mover para o SpecificController do start post
-            // if($this->helper->isAllowedUser(array('admin','designer','redator'), false)) {
-            //     $data['header']['clientes'] = \Model\DAO\Cliente::getAllClientes();
-            // }
-            // 
-            // if($this->helper->isAllowedUser(array('admin','redator'), false)) {
-            //     $data['header']['revisao']['count'] = $this->dao['postagem']->count(array('status' => '0', 'single' => true));
-            // }
-            // 
-            // if($_SESSION['login']['tipo'] == 'cliente') {
-            //     $configBasicData['id'] = $_SESSION['login']['id'];
-            //     $configBasicData['group'] = 'mes_ano';
-            //     $data['header']['sidebar']['planejameto'] = $this->dao['planejamento']->getResult($configBasicData);
-            // }
 
             $data['footer']['version'] = $this->helper->getProjectVersion();
             $this->data = $data;
