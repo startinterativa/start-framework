@@ -22,7 +22,7 @@
             $this->header = $GLOBALS['start']['config']->frameworkConfig['template']['defaultHeader'];
             $this->footer = $GLOBALS['start']['config']->frameworkConfig['template']['defaultFooter'];
             $this->dao = array();
-            $this->data = $this->processBasicData();
+            $this->processBasicData();
 
             if(isset($daoClasses)) {
                 foreach ($daoClasses as $dao => $namespace) {
@@ -74,8 +74,19 @@
                 setcookie('alert', '', time()-3600, '/');
             }
 
+            $data['header']['base'] = $this->helper->getServerProtocol() . $_SERVER['SERVER_NAME'];
+            
+            if (class_exists('\\Controller\\SpecificController')) {
+                $specificController = new \Controller\SpecificController();
+                $specificController->helper = $this->helper;
+                $specificController->processBasicData($data);
+            }
+            
+            $data['footer']['version'] = $this->helper->getProjectVersion();
+            
             if (!isset($_SESSION['login'])) {
-                return $data;
+                $this->data = $data;
+                return;
             }
             
             foreach ($GLOBALS['start']['config']->frameworkConfig['BasicLoginFields'] as $field) {
@@ -87,15 +98,7 @@
                 $this->data['body']['login']['tipo'] = $_SESSION['login']['tipo'];
             }
             
-            $data['header']['base'] = $this->helper->getServerProtocol() . $_SERVER['SERVER_NAME'];
-            
-            if (class_exists('\\Controller\\SpecificController')) {
-                $specificController = new \Controller\SpecificController();
-                $specificController->helper = $this->helper;
-                $specificController->processBasicData($data);
-            }
 
-            $data['footer']['version'] = $this->helper->getProjectVersion();
             $this->data = $data;
         }
 

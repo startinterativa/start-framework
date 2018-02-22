@@ -56,6 +56,10 @@
             return $html;
         }
 
+        public function getLogin() {
+            return $_SESSION['login'];
+        }
+        
         public function getUsername() {
             return $_SESSION['login']['usuario'];
         }
@@ -75,6 +79,7 @@
                 new \Twig_SimpleFunction('getDate', array($this, 'getDate'), array('needs_context' => false)),
                 new \Twig_SimpleFunction('getThumb', array($this, 'getThumb'), array('needs_context' => false)),
                 new \Twig_SimpleFunction('getImage', array($this, 'getImage'), array('needs_context' => false, 'pre_escape' => 'html', 'is_safe' => array('html'))),
+                new \Twig_SimpleFunction('getLogin', array($this, 'getLogin'), array('needs_context' => false)),
                 new \Twig_SimpleFunction('getUsername', array($this, 'getUsername'), array('needs_context' => false)),
                 new \Twig_SimpleFunction('getUserPicture', array($this, 'getUserPicture'), array('needs_context' => false)),
                 new \Twig_SimpleFunction('format_real', array($this, 'format_real'), array('needs_context' => false))
