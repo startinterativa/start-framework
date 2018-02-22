@@ -19,9 +19,11 @@
             $this->helper = \StartInterativa\StartFramework\Support\Helper::getInstance();
             $daoClasses = $GLOBALS['start']['config']->frameworkConfig['Classes']['DAO'];
             $this->type = 'html';
-            $this->header = $GLOBALS['start']['config']->frameworkConfig['defaultHeader'];
-            $this->footer = $GLOBALS['start']['config']->frameworkConfig['defaultFooter'];
+            $this->header = $GLOBALS['start']['config']->frameworkConfig['template']['defaultHeader'];
+            $this->footer = $GLOBALS['start']['config']->frameworkConfig['template']['defaultFooter'];
             $this->dao = array();
+            $this->data = $this->processBasicData();
+
             if(isset($daoClasses)) {
                 foreach ($daoClasses as $dao => $namespace) {
                     $this->dao[$dao] = $namespace::getInstance();
@@ -31,7 +33,6 @@
 
         public function process($method) {
 
-            $this->processBasicData();
             $this->configure();
             
             if(!empty($method)) {

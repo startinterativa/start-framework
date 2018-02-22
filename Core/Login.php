@@ -6,15 +6,18 @@
             parent::__construct();
             $this->action = "processLogin";
             $this->methods = ["login"=>"processLogin"];
+            $this->header = $GLOBALS['start']['config']->frameworkConfig['template']['loginHeader'];
+            $this->page = $GLOBALS['start']['config']->frameworkConfig['template']['loginPage'];
+            $this->footer = $GLOBALS['start']['config']->frameworkConfig['template']['loginFooter'];
         }
 
         public function login() {
-            if(!self::isLogged()) { //NÃO TA LOGADO
+            if(!$this->isLogged()) { //NÃO TA LOGADO
                 if (isset($_GET['route']) AND $_GET['route'] =='login') { //CHAMANDO O MODEL PARA LOGAR
-                    self::initSession();
+                    $this->initSession();
                 } else { //FAZENDO LOGIN NA VIEW
-                    self::processLogin();
-                    $this->helper->renderPage($this->header, $this->page, $this->data);
+                    $this->processLogin();
+                    $this->helper->renderPage($this);
                     return false;
                 }
             }
@@ -49,7 +52,6 @@
                 $this->data['body']['alert']['titulo'] = 'Acesso não permitido!';
                 $this->data['body']['alert']['texto'] = 'Login Incorreto';
             }
-            $this->data['footer']['dontShowFooter'] = true;
         }
     }
 
