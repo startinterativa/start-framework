@@ -142,7 +142,7 @@
         public function isAllowedUser($types, $die = true){
             $is = false;
             foreach ($types as $type) {
-                if($_SESSION['login']['tipo'] == $type) {
+                if(isset($_SESSION['login']['tipo']) && $_SESSION['login']['tipo'] == $type) {
                     $is = true;
                 }
             }
