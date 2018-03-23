@@ -51,7 +51,7 @@
                 $this->processBreadcrumbs();
             }
             
-            if (isset($GLOBALS['start']['config']->localConfig['notification']) && $GLOBALS['start']['config']->localConfig['notification']) {
+            if (isset($GLOBALS['start']['config']->frameworkConfig['notification']) && $GLOBALS['start']['config']->frameworkConfig['notification']) {
                 $this->addScript('vendor/startinterativa/start-framework/Core/Notification/notification.js', "Notifications");
             }
             

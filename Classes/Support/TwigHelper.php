@@ -24,6 +24,10 @@
         }
 
         public function getThumb($img){
+            if(!is_file(SITEROOT . '/' . $img)){
+                return $GLOBALS['start']['config']->frameworkConfig['template']['emptyThumb'];
+            }
+
             $explodedImg = explode(",", $img);
             
             if(is_array($explodedImg)) {
@@ -32,9 +36,13 @@
                 $thumb = implode("/", $explodedPath);
 
                 if(!is_file($thumb)) {
-                    $image = new \Eventviva\ImageResize($explodedImg[0]);
-                    $image->resizeToWidth(300);
-                    $image->save($thumb);
+                    try {
+                        $image = new \Eventviva\ImageResize($explodedImg[0]);
+                        $image->resizeToWidth(300);
+                        $image->save($thumb);
+                    } catch(Exception $e) {
+                        return '';
+                    }
                 }
                 
                 return $thumb;
@@ -43,17 +51,12 @@
         }
         
         public function getImage($img) {
-            $explodedImg = explode(",", $img);
-            $html = '';
             
-            if(is_array($explodedImg)) {
-                if(count($explodedImg) > 1) {
-                    $html = $this->helper->processHTML('components/carousel', array('imagens' => $explodedImg));
-                } else {
-                    $html = $this->helper->processHTML('components/imagem', array('imagem' => $explodedImg[0]));
-                }
+            if(is_file($img)) {
+                return $img;
             }
-            return $html;
+            
+            return $GLOBALS['start']['config']->frameworkConfig['template']['emptyImage'];
         }
 
         public function getLogin() {
