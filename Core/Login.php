@@ -1,6 +1,8 @@
 <?php
     namespace StartInterativa\StartFramework\Core;
     class Login extends \StartInterativa\StartFramework\Base\Controller {
+        
+        var $requestUrl;
 
         function __construct() {
             parent::__construct();
@@ -13,7 +15,8 @@
 
         public function login() {
             if(!$this->isLogged()) { //NÃO TA LOGADO
-                if (isset($_GET['route']) AND $_GET['route'] =='login') { //CHAMANDO O MODEL PARA LOGAR
+                $this->requestUrl = $this->helper->getCurrentUrl();
+                if (isset($_POST['usuario']) AND isset($_POST['senha'])) { //CHAMANDO O MODEL PARA LOGAR
                     $this->initSession();
                 } else { //FAZENDO LOGIN NA VIEW
                     $this->processLogin();
@@ -38,6 +41,9 @@
                 $_SESSION['login']['status'] = "1";
             } else {
                 $queryString = 'loginIncorreto';
+            }
+            if($this->requestUrl) {
+                $queryString = $this->requestUrl;
             }
             $this->helper->redirect($queryString);
         }

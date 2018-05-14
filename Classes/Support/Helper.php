@@ -264,12 +264,16 @@
             }
         	return $url;
         }
-
-        public function redirect($params = null, $data = null){
+        
+        public function redirect($url = null, $data = null){
             if($data) {
                 setcookie('alert', serialize($data), time()+3600, '/');
             }
-            header('Location: ' . self::getUrl($params));
+            
+            if(substr($url, 0, 4) !== 'http') {
+                $url = $this->getUrl($url);
+            }
+            header('Location: ' . $url);
         }
 
         public function redirect404() {
