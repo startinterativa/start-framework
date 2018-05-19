@@ -13,7 +13,14 @@
                     exit();
                 }
                 
-                $class = '\Controller\\' . ucfirst($_GET['route']);
+                if($route == 'login') {
+                    $class = '\StartInterativa\\StartFramework\\Core\\Login';
+                    $method = "login";
+                } else {
+                    $class = '\Controller\\' . ucfirst($_GET['route']);
+                    $method = "";
+                } 
+                
             }
                         
             if(class_exists($class)) {
@@ -21,8 +28,7 @@
             } else {
                 \StartInterativa\StartFramework\Support\Helper::getInstance()->redirect404();
             }
-
-            $method = "";
+            
             if(isset($_GET['method'])) {
                 $method = $_GET['method'];
             }

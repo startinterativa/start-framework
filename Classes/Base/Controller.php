@@ -66,7 +66,6 @@
             $data['header'] = array();
             $data['body'] = array();
             $data['footer'] = array();
-            
 
             if(isset($_COOKIE['alert']) && $_COOKIE['alert'] != '') {
                 $data['header']['alert'] = unserialize($_COOKIE['alert']);

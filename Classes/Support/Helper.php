@@ -177,7 +177,7 @@
         }
 
         public function renderHeader($twig, $data) {
-            if (intval(\Controller\Login::isLogged()) != 0) {
+            if (intval(\StartInterativa\StartFramework\Core\Login::isLogged()) != 0) {
                 echo $this->render($twig, $data);
             } else {
                 echo $this->render($twig, $data);
