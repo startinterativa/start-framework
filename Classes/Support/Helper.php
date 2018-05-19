@@ -48,11 +48,11 @@
         }
 
         public function dateToTimestamp($data) {
-            $arrayDate = explode("/", $data);
-            $data = $arrayDate[1] . "/" . $arrayDate[0] . "/" . $arrayDate[2];
-            $data = str_replace('/', '-', $data);
-            $data = date('Y-m-d h:i:s', strtotime($data));
-            return strtotime($data);
+            if(!empty($data)) {
+                list($day, $month, $year) = explode('/', $data);
+                return mktime(0, 0, 0, $month, $day, $year);
+            }
+            return false;
         }
 
         public function timestampToDate($timestamp) {
