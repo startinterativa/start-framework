@@ -8,11 +8,27 @@
 
         public static function conexao ($db) {
             try {
-                $db = new \PDO("mysql:host=".$db['server'].";dbname=".$db['database'].";charset=utf8mb4", $db['user'], $db['password']) or die("Não foi possível conectar com o servidor de dados!");
+                $db = new \PDO("mysql:host=".$db['server'].";dbname=".$db['dbname'].";charset=utf8mb4", $db['user'], $db['password']) or die("Não foi possível conectar com o servidor de dados!");
             } catch (exception $e) {
                 die("Erro de conexão: " . $e->getMessage());
             }
             return $db;
+        }
+        
+        public static function orm($db) {
+            $isDevMode = false;
+            
+            if($GLOBALS['start']['config']->localConfig['env']) {
+                $isDevMode = true;
+            }
+            
+            $entities = array("Model/ORM");
+            $db['driver'] = 'pdo_mysql';
+            
+            $config = \Doctrine\ORM\Tools\Setup::createAnnotationMetadataConfiguration($entities, $isDevMode);
+            $entityManager = \Doctrine\ORM\EntityManager::create($db, $config);
+
+            return $entityManager;
         }
     }
 
