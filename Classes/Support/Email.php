@@ -17,10 +17,11 @@
             $this->mail->Host = 'smtp.gmail.com';
             $this->mail->Port = 587;
             $this->mail->CharSet = 'UTF-8';
-            $this->mail->Username = $GLOBALS['mail']['email'];
-            $this->mail->Password = $GLOBALS['mail']['password'];
-            $this->mail->setFrom($GLOBALS['mail']['email'], 'Start Interativa');
-            $this->mail->addReplyTo($GLOBALS['mail']['email'], 'Start Interativa');
+            
+            $this->mail->Username = $GLOBALS['start']['config']->localConfig['mail']['send']['email'];
+            $this->mail->Password = $GLOBALS['start']['config']->localConfig['mail']['send']['password'];
+            $this->mail->setFrom($GLOBALS['start']['config']->localConfig['mail']['send']['email'], 'Start Interativa');
+            $this->mail->addReplyTo($GLOBALS['start']['config']->localConfig['mail']['send']['email'], 'Start Interativa');
         }
 
         public function sendPlainMessage($subject, $message, $to, $name) {
