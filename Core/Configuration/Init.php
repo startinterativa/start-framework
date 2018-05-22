@@ -40,9 +40,9 @@
                 ob_start();
                 $login = new \StartInterativa\StartFramework\Core\Login();
                 $success = $login->login();
-                if($success) {
-                    \StartInterativa\StartFramework\Core\Route::route();
-                }
+            }
+            if($success || !$this->frameworkConfig['loginRequired']) {
+                \StartInterativa\StartFramework\Core\Route::route();
             }
             
         }
