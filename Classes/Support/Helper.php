@@ -247,7 +247,7 @@
         }
 
         public function getBaseUrl() {
-            return self::getServerProtocol() . $_SERVER['SERVER_NAME'];
+            return self::getServerProtocol() . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
         }
 
         public function addCookie($key, $value) {
