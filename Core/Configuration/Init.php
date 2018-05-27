@@ -7,7 +7,9 @@
         var $localConfig;
         
         public function __construct() {
-            define('SITEROOT', dirname($_SERVER["SCRIPT_FILENAME"]));
+            if(!defined('SITEROOT')) {
+                define('SITEROOT', dirname($_SERVER["SCRIPT_FILENAME"]));
+            }
             $frameworkConfig = file_get_contents(SITEROOT.'/FrameworkConfig.json');
             $this->frameworkConfig = json_decode($frameworkConfig, true);
             
@@ -24,7 +26,7 @@
             
             header('Content-Type: text/html; charset=utf-8');
             
-            if($this->localConfig['env'] == 'dev') {
+            if(isset($GLOBALS['start']['config']->localConfig['env']) && $this->localConfig['env'] == 'dev') {
                 ini_set('display_errors', 1);
             }
             
@@ -34,7 +36,6 @@
         }
         
         public function execute() {
-            $this->config();
             if(isset($this->frameworkConfig['loginRequired']) && $this->frameworkConfig['loginRequired'] ==  true) {
                 session_start();
                 ob_start();
