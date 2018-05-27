@@ -19,7 +19,7 @@
                 
             }
             //get_declared_classes()
-            if(class_exists($class)) {
+            if(class_exists($class))
                 $controller = new $class();
             } else {
                 \StartInterativa\StartFramework\Support\Helper::getInstance()->redirect404();
