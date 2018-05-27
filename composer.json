@@ -10,8 +10,8 @@
         "doctrine/orm": "v2.5.14"
     },
     "autoload": {
-        "psr-4": {
-            "StartInterativa\\StartFramework\\": "."
+        "psr-0": {
+            "StartInterativa\\StartFramework\\": "src/"
         }
     }
 }
