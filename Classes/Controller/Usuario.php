@@ -39,10 +39,12 @@
         }
 
         public function processListUsuarios() {
-            $this->helper->isAllowedUser(array('admin'));
-            $this->data['body']['usuarios'] = $this->dao['usuario']->getAllUsers();
-
             $this->page = 'usuario/list';
+            $this->helper->isAllowedUser(array('admin'));
+            // $this->data['body']['usuarios'] = $this->dao['usuario']->getAllUsers();
+            var_dump($GLOBALS['db']['orm']->getRepository('StartInterativa\StartFramework\Model\ORM\StartUser'));die;
+            $test = $GLOBALS['db']['orm']->getRepository('StartInterativa\StartFramework\Model\ORM\StartUser');//->findAll();//findBy(array('status' => 'CLOSED'));
+
         }
 }
 

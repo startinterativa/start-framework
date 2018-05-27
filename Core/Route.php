@@ -18,7 +18,7 @@
                 $class = self::getClass($route);
                 
             }
-            
+            //get_declared_classes()
             if(class_exists($class)) {
                 $controller = new $class();
             } else {
