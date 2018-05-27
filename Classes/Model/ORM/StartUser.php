@@ -4,6 +4,7 @@ namespace StartInterativa\StartFramework\Model\ORM;
  * 
  * @Entity
  * @Table(name="start_user")
+ * @ORM\Entity(repositoryClass="StartInterativa\StartFramework\Model\Repository\StartUserRepository")
  */
 class StartUser
 {
