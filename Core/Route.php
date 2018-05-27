@@ -1,6 +1,8 @@
 <?php
     namespace StartInterativa\StartFramework\Core;
+    
     class Route {
+        
         public static function route() {
             $class = "\Controller\Dashboard";
             if(isset($_GET['route'])) {
@@ -13,16 +15,10 @@
                     exit();
                 }
                 
-                if($route == 'login') {
-                    $class = '\StartInterativa\\StartFramework\\Core\\Login';
-                    $method = "login";
-                } else {
-                    $class = '\Controller\\' . ucfirst($_GET['route']);
-                    $method = "";
-                } 
+                $class = self::getClass($route);
                 
             }
-                        
+            
             if(class_exists($class)) {
                 $controller = new $class();
             } else {
@@ -35,6 +31,17 @@
             $controller->process($method);
             $controller->render();
         }
+        
+        private static function getClass($route) {
+            $frameworkRoutesClasses = array(
+                'usuario' => '\StartInterativa\\StartFramework\\Controller\\Usuario'
+            );
+            
+            if(isset($frameworkRoutesClasses[$route])) {
+                return $frameworkRoutesClasses[$route];
+            }
+            
+            return '\Controller\\' . ucfirst($_GET['route']);
+            
+        }
     }
-
- ?>

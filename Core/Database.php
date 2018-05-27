@@ -22,7 +22,7 @@
                 $isDevMode = true;
             }
             
-            $entities = array("Model/ORM");
+            $entities = array("Model/ORM", "vendor/startinterativa/start-php-framework/Classes/Model/ORM");
             $db['driver'] = 'pdo_mysql';
             
             $config = \Doctrine\ORM\Tools\Setup::createAnnotationMetadataConfiguration($entities, $isDevMode);
