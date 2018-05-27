@@ -18,7 +18,7 @@
         public static function orm($db) {
             $isDevMode = false;
             
-            if($GLOBALS['start']['config']->localConfig['env']) {
+            if(isset($GLOBALS['start']['config']->localConfig['env']) && $GLOBALS['start']['config']->localConfig['env'] == 'dev') {
                 $isDevMode = true;
             }
             
