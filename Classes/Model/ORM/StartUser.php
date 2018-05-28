@@ -1,10 +1,14 @@
 <?php
 namespace StartInterativa\StartFramework\Model\ORM;
+
+use Doctrine\ORM\Mapping\Entity;
+use Doctrine\ORM\Mapping\Table;
+
 /**
  * 
  * @Entity
  * @Table(name="start_user")
- * @ORM\Entity(repositoryClass="StartInterativa\StartFramework\Model\Repository\StartUserRepository")
+ * @Entity(repositoryClass="StartInterativa\StartFramework\Model\Repository\StartUserRepository")
  */
 class StartUser
 {
@@ -36,13 +40,23 @@ class StartUser
     var $email;
     
     /**
-    * @Column(type="string", name="image")
+    * @Column(type="text", name="image")
     */
-    var $datetime;
+    var $image;
     
     /**
-     * @Column(type="integer", name="deleted")
+     * @Column(type="integer", name="lastLogin", options={"default" : 0})
      */
-    var $deleted;
+    var $lastLogin = 0;
+    
+    /**
+     * @Column(type="integer", name="crdate")
+     */
+    var $crdate;
+    
+    /**
+     * @Column(type="integer", name="deleted", options={"default" : 0})
+     */
+    var $deleted = 0;
     
 }

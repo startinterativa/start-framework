@@ -35,10 +35,15 @@
         }
 
         private function initSession() {
-            $usuario = new \Model\Object\Usuario($_POST['usuario'], $_POST['senha']);
+            $startUserRepository = $GLOBALS['db']['orm']->getRepository('StartInterativa\StartFramework\Model\ORM\StartUser');
+            
+            $login = $startUserRepository->login($_POST['usuario'], $_POST['senha']);
             $queryString = null;
-            if($this->dao['usuario']->login($usuario)) {
-                $_SESSION['login']['status'] = "1";
+            if($login) {
+                $_SESSION['login']['usuario'] = $login->username;
+                $_SESSION['login']['id'] = $login->id;
+                $_SESSION['login']['tipo'] = $login->type;
+                $_SESSION['login']['status'] = 1;
             } else {
                 $queryString = 'loginIncorreto';
             }
