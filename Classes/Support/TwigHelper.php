@@ -64,7 +64,7 @@
         }
         
         public function getUsername() {
-            return $_SESSION['login']['usuario'];
+            return $_SESSION['login']['username'];
         }
 
         public function getUserPicture() {
