@@ -25,6 +25,7 @@
                 \StartInterativa\StartFramework\Support\Helper::getInstance()->redirect404();
             }
             
+            $method = "";
             if(isset($_GET['method'])) {
                 $method = $_GET['method'];
             }

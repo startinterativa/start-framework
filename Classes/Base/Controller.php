@@ -88,13 +88,11 @@
                 return;
             }
             
-            foreach ($GLOBALS['start']['config']->frameworkConfig['BasicLoginFields'] as $field) {
-                $data['header']['login'][$field] = $_SESSION['login'][$field];
-            }
+            $data['header']['login'] = $_SESSION['login'];
             
             // Adiciona o tipo de login ao data body
             if (isset($_SESSION['login'])) {
-                $this->data['body']['login']['tipo'] = $_SESSION['login']['tipo'];
+                $this->data['body']['login']['type'] = $_SESSION['login']['type'];
             }
             
 
@@ -104,7 +102,7 @@
         private function getConfigProvider() {
             $data['id'] = isset($_GET['id']) ? $_GET['id'] : null;
 
-            if(isset($_SESSION['login']['tipo']) && !$this->helper->isNotUser()) {
+            if(isset($_SESSION['login']['type']) && !$this->helper->isNotUser()) {
                 $data['id'] = $_SESSION['login']['id'];
             }
 

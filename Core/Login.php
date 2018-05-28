@@ -40,9 +40,7 @@
             $login = $startUserRepository->login($_POST['usuario'], $_POST['senha']);
             $queryString = null;
             if($login) {
-                $_SESSION['login']['usuario'] = $login->username;
-                $_SESSION['login']['id'] = $login->id;
-                $_SESSION['login']['tipo'] = $login->type;
+                $_SESSION['login'] = get_object_vars($login);
                 $_SESSION['login']['status'] = 1;
             } else {
                 $queryString = 'loginIncorreto';
