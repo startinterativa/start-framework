@@ -10,8 +10,12 @@
         "doctrine/orm": "v2.5.14"
     },
     "autoload": {
-        "psr-0": {
-            "StartInterativa\\StartFramework\\": "src/"
+        "psr-4": {
+            "StartInterativa\\StartFramework\\Core\\": "Core/",
+            "StartInterativa\\StartFramework\\Base\\": "Classes/Base/",
+            "StartInterativa\\StartFramework\\Model\\": "Classes/Model/",
+            "StartInterativa\\StartFramework\\Support\\": "Classes/Support/",
+            "StartInterativa\\StartFramework\\Controller\\": "Classes/Controller/"
         }
     }
 }
