@@ -27,7 +27,10 @@
             header('Content-Type: text/html; charset=utf-8');
             
             if(isset($GLOBALS['start']['config']->localConfig['env']) && $this->localConfig['env'] == 'dev') {
-                ini_set('display_errors', 1);
+                error_reporting(-1);
+                ini_set("display_errors", "1");
+                ini_set("log_errors", 1);
+                ini_set("error_log", SITEROOT . "/php-error.log");
             }
             
             if(isset($this->localConfig['timezone'])) {

@@ -10,40 +10,40 @@
         }
 
         public function processNewUsuario() {
+            $this->page = 'usuario/form';
             $this->helper->isAllowedUser(array('admin'));
-            $this->data['body'] = array();
-
-            if(isset($_GET['type']) && $_GET['type']=='cliente') {
-                $this->data['body']['clientes'] = $this->dao['cliente']->getAllClientes();
-                $this->data['body']['selected'] = $_GET['type'];
+            
+            
+            if(is_array($GLOBALS['start']['config']->frameworkConfig['loginTypes'])) {
+                $this->data['body']['loginTypes'] = $GLOBALS['start']['config']->frameworkConfig['loginTypes'];
             }
-
+            
             if(isset($_POST['action'])) {
-                if($_POST['senha'] != $_POST['confirma']) {
+                if($_POST['password'] != $_POST['password_confirm']) {
                     die("A senha precisa ser igual");
                 } else {
-                    $cliente = 0;
-                    if(isset($_POST['cliente'])) {
-                        $cliente = $_POST['cliente'];
-                    }
+                    $user = new \StartInterativa\StartFramework\Model\ORM\StartUser();
+                    $user->username = $_POST['username'];
+                    $user->password = crypt($_POST['password'], '');
+                    $user->type = $_POST['type'];
+                    $user->email = $_POST['email'];
+                    $user->image = $_POST['image'];
+                    $user->crdate = time();
 
-                    $imagem = $this->helper->getImageObject($_POST['pathImagem']);
-                    $usuario = new \Model\Object\Usuario($_POST['usuario'], crypt($_POST['senha'],''), $_POST['tipo'], $cliente, $_POST['email'], $imagem);
-
-                    $res = $this->dao['usuario']->insert($usuario);
+                    $GLOBALS['db']['orm']->persist($user);
+                    $GLOBALS['db']['orm']->flush();
+                    
                     $this->helper->redirect('usuario,lista');
                 }
             }
 
-            $this->page = 'usuario/form';
         }
 
         public function processListUsuarios() {
             $this->page = 'usuario/list';
             $this->helper->isAllowedUser(array('admin'));
-            // $this->data['body']['usuarios'] = $this->dao['usuario']->getAllUsers();
-            var_dump($GLOBALS['db']['orm']->getRepository('StartInterativa\StartFramework\Model\ORM\StartUser'));die;
-            $test = $GLOBALS['db']['orm']->getRepository('StartInterativa\StartFramework\Model\ORM\StartUser');//->findAll();//findBy(array('status' => 'CLOSED'));
+            
+            $this->data['body']['users'] = $GLOBALS['db']['orm']->getRepository('StartInterativa\StartFramework\Model\ORM\StartUser')->findAll();
 
         }
 }
