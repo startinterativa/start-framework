@@ -142,7 +142,7 @@
         public function isAllowedUser($types, $die = true){
             $is = false;
             foreach ($types as $type) {
-                if(isset($_SESSION['login']['tipo']) && $_SESSION['login']['tipo'] == $type) {
+                if(isset($_SESSION['login']['type']) && $_SESSION['login']['type'] == $type) {
                     $is = true;
                 }
             }
@@ -154,13 +154,13 @@
         }
 
         public function isCurrentCliente($id) {
-            if (($_SESSION['login']['tipo'] == 'cliente') && ($_SESSION['login']['id'] != $id)) {
+            if (($_SESSION['login']['type'] == 'cliente') && ($_SESSION['login']['id'] != $id)) {
                 $this->redirect404();
             }
         }
 
         public function isNotUser() {
-            if (isset($_SESSION['login']['tipo']) && $_SESSION['login']['tipo'] != 'cliente') {
+            if (isset($_SESSION['login']['type']) && $_SESSION['login']['type'] != 'cliente') {
                 return true;
             }
             return false;
@@ -177,11 +177,7 @@
         }
 
         public function renderHeader($twig, $data) {
-            if (intval(\StartInterativa\StartFramework\Core\Login::isLogged()) != 0) {
-                echo $this->render($twig, $data);
-            } else {
-                echo $this->render($twig, $data);
-            }
+            echo $this->render($twig, $data);
         }
 
         public function render($twig, $values = array()) {
@@ -313,7 +309,7 @@
         }
 
         public function getIdParam() {
-            if($_SESSION['login']['tipo'] == 'cliente') {
+            if($_SESSION['login']['type'] == 'cliente') {
                 return $_SESSION['login']['id'];
             }
 
