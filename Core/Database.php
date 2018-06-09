@@ -24,6 +24,7 @@
             
             $entities = array("Model/ORM", "vendor/startinterativa/start-php-framework/Classes/Model/ORM");
             $db['driver'] = 'pdo_mysql';
+            $db['charset'] = 'utf8mb4';
             
             $config = \Doctrine\ORM\Tools\Setup::createAnnotationMetadataConfiguration($entities, $isDevMode);
             $entityManager = \Doctrine\ORM\EntityManager::create($db, $config);
