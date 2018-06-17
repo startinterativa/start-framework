@@ -51,6 +51,8 @@
                 $this->processBreadcrumbs();
             }
             
+            $this->addScript('vendor/startinterativa/start-php-framework/Core/Frontend/start_framework.js', "StartFramework");
+            
             if (isset($GLOBALS['start']['config']->frameworkConfig['notification']) && $GLOBALS['start']['config']->frameworkConfig['notification']) {
                 $this->addScript('vendor/startinterativa/start-framework/Core/Notification/notification.js', "Notifications");
             }
