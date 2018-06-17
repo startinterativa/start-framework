@@ -6,7 +6,7 @@
         function __construct() {
             parent::__construct();
             $this->defaultAction = "processListUsuarios";
-            $this->methods = ["novo"=>"processNewUsuario", "lista"=>"processListUsuarios"];
+            $this->methods = ["novo"=>"processNewUsuario", "lista"=>"processListUsuarios", "editar"=>"processEdit"];
         }
 
         public function processNewUsuario() {
@@ -45,6 +45,27 @@
             
             $this->data['body']['users'] = $GLOBALS['db']['orm']->getRepository('StartInterativa\StartFramework\Model\ORM\StartUser')->findAll();
 
+        }
+        
+        public function processEdit() {
+            $this->page = 'usuario/form';
+            $this->helper->isAllowedUser(array('admin'));
+            
+            if(is_array($GLOBALS['start']['config']->frameworkConfig['loginTypes'])) {
+                $this->data['body']['loginTypes'] = $GLOBALS['start']['config']->frameworkConfig['loginTypes'];
+            }
+            
+            if(isset($_POST['action']) && $_POST['action'] == 'update') {
+                $user = new \StartInterativa\StartFramework\Model\ORM\StartUser();
+                $user->id = $_POST['id'];
+                $user->username = $_POST['username'];
+                $user->password = crypt($_POST['password'], '');
+                $user->type = $_POST['type'];
+                $user->email = $_POST['email'];
+                $user->image = $_POST['image'];
+            }
+            
+            $this->data['body']['user'] = $this->data['body']['users'] = $GLOBALS['db']['orm']->getRepository('StartInterativa\StartFramework\Model\ORM\StartUser')->findOneBy(array('id' => $_GET['id']));
         }
 }
 
