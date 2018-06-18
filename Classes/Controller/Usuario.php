@@ -55,17 +55,25 @@
                 $this->data['body']['loginTypes'] = $GLOBALS['start']['config']->frameworkConfig['loginTypes'];
             }
             
+            $user = $this->data['body']['users'] = $GLOBALS['db']['orm']->getRepository('StartInterativa\StartFramework\Model\ORM\StartUser')->findOneBy(array('id' => $_GET['id']));
+            
             if(isset($_POST['action']) && $_POST['action'] == 'update') {
-                $user = new \StartInterativa\StartFramework\Model\ORM\StartUser();
-                $user->id = $_POST['id'];
+                
                 $user->username = $_POST['username'];
-                $user->password = crypt($_POST['password'], '');
+                
+                if(!empty($_POST['password']) && ($_POST['password'] == $_POST['password_confirm'])) {
+                    $user->password = crypt($_POST['password'], '');
+                }
+                
                 $user->type = $_POST['type'];
                 $user->email = $_POST['email'];
-                $user->image = $_POST['image'];
+                $user->image = $_POST['pathImagem'];
+                
+                $GLOBALS['db']['orm']->merge($user);
+                $GLOBALS['db']['orm']->flush();
             }
             
-            $this->data['body']['user'] = $this->data['body']['users'] = $GLOBALS['db']['orm']->getRepository('StartInterativa\StartFramework\Model\ORM\StartUser')->findOneBy(array('id' => $_GET['id']));
+            $this->data['body']['user'] = $user;
         }
 }
 

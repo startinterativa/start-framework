@@ -39,7 +39,7 @@
                     try {
                         $image = new \Eventviva\ImageResize($explodedImg[0]);
                         $image->resizeToWidth(300);
-                        $image->save($thumb);
+                        $ret = $image->save($thumb);
                     } catch(Exception $e) {
                         return '';
                     }
