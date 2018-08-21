@@ -13,14 +13,19 @@ class StartLog
      * @Column(type="integer", name="id")
      */
     var $id;
-    
+
+    /**
+     * @Column(type="string", name="type")
+     */
+    var $type;
+
     /**
      * @Column(type="string", name="action")
      */
     var $action;
     
     /**
-     * @Column(type="string", name="message")
+     * @Column(type="text", name="message")
      */
     var $message;
     
@@ -40,13 +45,13 @@ class StartLog
     var $datetime;
     
     /**
-     * @Column(type="integer", name="tablename")
+     * @Column(type="string", name="tablename")
      */
     var $tablename;
     
     /**
-     * @Column(type="string", name="key")
+     * @Column(type="integer", name="foreign_id")
      */
-    var $key;
+    var $foreign_id;
     
 }
