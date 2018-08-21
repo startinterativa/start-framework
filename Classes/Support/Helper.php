@@ -303,9 +303,19 @@
             }
         }
 
-        public function log(\Model\Object\Log $log) {
-            $logDAO = \Model\DAO\Log::getInstance($this);
-            $logDAO->insert($log);
+        public function log($log) {
+            $logObj = new \StartInterativa\StartFramework\Model\ORM\StartLog();
+            $logObj->type = $log['type'];
+            $logObj->action = $log['action'];
+            $logObj->message = $log['message'];
+            $logObj->status = $log['status'];
+            $logObj->user = $_SESSION['login']['username'];
+            $logObj->tablename = $log['tablename'];
+            $logObj->datetime = time();
+            $logObj->foreign_id = $log['foreign_id'];
+
+            $GLOBALS['db']['orm']->persist($logObj);
+            $GLOBALS['db']['orm']->flush();
         }
 
         public function getIdParam() {
