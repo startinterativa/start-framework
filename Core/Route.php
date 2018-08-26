@@ -35,9 +35,9 @@
         
         private static function getClass($route) {
             $frameworkRoutesClasses = array(
-                'usuario' => '\StartInterativa\\StartFramework\\Controller\\Usuario'
+                'usuario' => '\StartInterativa\\StartFramework\\Controller\\Usuario',
+                'logs' => '\StartInterativa\\StartFramework\\Controller\\Logs',
             );
-            
             if(isset($frameworkRoutesClasses[$route])) {
                 return $frameworkRoutesClasses[$route];
             }
