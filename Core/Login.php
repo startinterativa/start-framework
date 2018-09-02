@@ -42,9 +42,23 @@
             if($login) {
                 $_SESSION['login'] = get_object_vars($login);
                 $_SESSION['login']['status'] = 1;
+                $message = "Login com sucesso";
+                $status = 1;
             } else {
+                $message = "Login incorreto: " . $_POST['usuario'];
                 $queryString = 'loginIncorreto';
+                $status = 0;
             }
+            $this->helper->log(
+                array(
+                    'type' => 'session',
+                    'action' => 'login',
+                    'message' => $message,
+                    'status' => $status,
+                    'tablename' => '',
+                    'foreign_id' => 0
+                )
+            );
             if($this->requestUrl) {
                 $queryString = $this->requestUrl;
             }
