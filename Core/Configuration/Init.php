@@ -36,12 +36,15 @@
             if(isset($this->localConfig['timezone'])) {
                 date_default_timezone_set($this->localConfig['timezone']);
             }
+
+            if(isset($this->frameworkConfig['loginRequired']) && $this->frameworkConfig['loginRequired'] ==  true) {
+                session_start();
+                ob_start();
+            }
         }
         
         public function execute() {
             if(isset($this->frameworkConfig['loginRequired']) && $this->frameworkConfig['loginRequired'] ==  true) {
-                session_start();
-                ob_start();
                 $login = new \StartInterativa\StartFramework\Core\Login();
                 $success = $login->login();
             }
