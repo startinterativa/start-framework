@@ -1,10 +1,55 @@
 <?php
     namespace StartInterativa\StartFramework\Core;
+
+    use Symfony\Component\Yaml\Yaml;
     
     class Route {
         
         public static function route() {
             $class = "\Controller\Dashboard";
+
+            if(!is_file(SITEROOT . '/Routes.yml')) {
+                echo "Arquivo de rotas não encontrado.";die;
+            }
+
+            $requestRoute = $_SERVER['REQUEST_URI'];
+            if(substr($requestRoute, 0, 1) ==  '/') {
+                $requestRoute = substr($requestRoute, 1);
+            }
+
+            $requestRoute = explode('/', $requestRoute);
+
+            $allRoutes = Yaml::parseFile(SITEROOT . '/Routes.yml');
+
+            $parameters = array();
+            $tempArray = $allRoutes;
+            // var_dump($allRoutes);die;
+            foreach ($requestRoute as $index => $param) {
+                if($index == 0) {
+                    $parameters['controller'] = $param;
+                }
+                
+                if(isset($tempArray[$param])) {
+                    if(is_array($tempArray[$param])) {
+                        $tempArray = $tempArray[$param];
+                    }
+                    echo "Encontrou " . $param . PHP_EOL;
+                    continue;
+                }
+
+                if(isset($tempArray['params'])) {
+                    foreach ($tempArray['params'] as $key => $type) {
+                        echo $param . gettype($param) . PHP_EOL;
+                        // if(gettype($param) == $type) {
+                        //     echo $param . " is " . $type . PHP_EOL;                        
+                        // }
+                    }
+                }
+
+            }
+            die;
+            // var_dump($parameters);die;
+
             if(isset($_GET['route'])) {
                 $route = $_GET['route'];
                 
