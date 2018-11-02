@@ -27,7 +27,7 @@
                     $user->password = crypt($_POST['password'], '');
                     $user->type = $_POST['type'];
                     $user->email = $_POST['email'];
-                    $user->image = $_POST['image'];
+                    $user->image = $_POST['pathImagem'];
                     $user->crdate = time();
 
                     $GLOBALS['db']['orm']->persist($user);
