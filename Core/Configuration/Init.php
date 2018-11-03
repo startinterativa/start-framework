@@ -34,8 +34,8 @@
             }
 
             if(isset($GLOBALS['start']['config']->localConfig['env']) && $this->localConfig['env'] == 'prod' && isset($GLOBALS['start']['config']->localConfig['sentry_url'])) {
-                $client = new Raven_Client($GLOBALS['start']['config']->localConfig['sentry_url']);
-                $error_handler = new Raven_ErrorHandler($client);
+                $client = new \Raven_Client($GLOBALS['start']['config']->localConfig['sentry_url']);
+                $error_handler = new \Raven_ErrorHandler($client);
                 $error_handler->registerExceptionHandler();
                 $error_handler->registerErrorHandler();
                 $error_handler->registerShutdownFunction();
