@@ -24,30 +24,7 @@
         }
 
         public function getThumb($img){
-            if(!is_file(SITEROOT . '/' . $img)){
-                return $GLOBALS['start']['config']->frameworkConfig['template']['emptyThumb'];
-            }
-
-            $explodedImg = explode(",", $img);
-            
-            if(is_array($explodedImg)) {
-                $explodedPath = explode("/", $explodedImg[0]);
-                array_splice($explodedPath, count($explodedPath)-1, 0, array('thumbs'));
-                $thumb = implode("/", $explodedPath);
-
-                if(!is_file($thumb)) {
-                    try {
-                        $image = new \Eventviva\ImageResize($explodedImg[0]);
-                        $image->resizeToWidth(300);
-                        $ret = $image->save($thumb);
-                    } catch(Exception $e) {
-                        return '';
-                    }
-                }
-                
-                return $thumb;
-            }
-            
+            return $this->helper->getThumb($img);
         }
         
         public function getImage($img) {
