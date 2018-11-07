@@ -331,12 +331,17 @@
         }
 
         public function log($log) {
+            $user = '';
+            if(isset($_SESSION['login']['username'])) {
+                $user = $_SESSION['login']['username'];
+            }
+
             $logObj = new \StartInterativa\StartFramework\Model\ORM\StartLog();
             $logObj->type = $log['type'];
             $logObj->action = $log['action'];
             $logObj->message = $log['message'];
             $logObj->status = $log['status'];
-            $logObj->user = $_SESSION['login']['username'];
+            $logObj->user = $user;
             $logObj->tablename = $log['tablename'];
             $logObj->datetime = time();
             $logObj->foreign_id = $log['foreign_id'];
