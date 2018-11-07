@@ -32,16 +32,27 @@
                 ini_set("log_errors", 1);
                 ini_set("error_log", SITEROOT . "/php-error.log");
             }
+
+            if(isset($GLOBALS['start']['config']->localConfig['env']) && $this->localConfig['env'] == 'prod' && isset($GLOBALS['start']['config']->localConfig['sentry_url'])) {
+                $client = new \Raven_Client($GLOBALS['start']['config']->localConfig['sentry_url']);
+                $error_handler = new \Raven_ErrorHandler($client);
+                $error_handler->registerExceptionHandler();
+                $error_handler->registerErrorHandler();
+                $error_handler->registerShutdownFunction();
+            }
             
             if(isset($this->localConfig['timezone'])) {
                 date_default_timezone_set($this->localConfig['timezone']);
+            }
+
+            if(isset($this->frameworkConfig['loginRequired']) && $this->frameworkConfig['loginRequired'] ==  true) {
+                session_start();
+                ob_start();
             }
         }
         
         public function execute() {
             if(isset($this->frameworkConfig['loginRequired']) && $this->frameworkConfig['loginRequired'] ==  true) {
-                session_start();
-                ob_start();
                 $login = new \StartInterativa\StartFramework\Core\Login();
                 $success = $login->login();
             }

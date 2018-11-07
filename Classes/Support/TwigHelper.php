@@ -52,6 +52,14 @@
             return $this->helper->getMoneyFormat($val);
         }
 
+        function getFileModifiedDate($file_path) {
+            $change_date = @filemtime($_SERVER['DOCUMENT_ROOT'].'/'.$file_path);
+            if (!$change_date) {
+                $change_date = mktime(0, 0, 0, date('m'), date('d'), date('Y'));
+            }
+            return $file_path . '?' . $change_date;
+        }
+    
         public function getFunctions()
         {
         	return array(
@@ -62,7 +70,8 @@
                 new \Twig_SimpleFunction('getLogin', array($this, 'getLogin'), array('needs_context' => false)),
                 new \Twig_SimpleFunction('getUsername', array($this, 'getUsername'), array('needs_context' => false)),
                 new \Twig_SimpleFunction('getUserPicture', array($this, 'getUserPicture'), array('needs_context' => false)),
-                new \Twig_SimpleFunction('format_real', array($this, 'format_real'), array('needs_context' => false))
+                new \Twig_SimpleFunction('format_real', array($this, 'format_real'), array('needs_context' => false)),
+                new \Twig_SimpleFunction('getFileModifiedDate', array($this, 'getFileModifiedDate'), array('needs_context' => false))
     	    );
         }
 
