@@ -32,11 +32,12 @@
         }
 
         public function process($method) {
-
             $this->configure();
             
             if(!empty($method)) {
-                if(isset($this->methods[$method])) {
+                if(method_exists($this, $method)) {
+                    $this->action = $method;
+                } else if(isset($this->methods[$method])) {
                     $this->action = $this->methods[$method];
                 } else {
                     $this->helper->redirect404();
