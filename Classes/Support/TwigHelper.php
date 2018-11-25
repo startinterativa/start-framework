@@ -45,7 +45,7 @@
         }
 
         public function getUserPicture() {
-            return $_SESSION['login']['imagem'];
+            return $_SESSION['login']['image'];
         }
         
         public function format_real($val) {
