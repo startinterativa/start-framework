@@ -3,19 +3,28 @@
 
     class Usuario extends \StartInterativa\StartFramework\Base\Controller {
 
+        var $hookClass = false;
+
         function __construct() {
             parent::__construct();
             $this->defaultAction = "processListUsuarios";
             $this->methods = ["novo"=>"processNewUsuario", "lista"=>"processListUsuarios", "editar"=>"processEdit"];
+
+            if(class_exists('\Hooks\StartUser')) {
+                $this->hookClass = new \Hooks\StartUser();
+            }
         }
 
         public function processNewUsuario() {
             $this->page = 'usuario/form';
             $this->helper->isAllowedUser(array('admin'));
             
-            
             if(is_array($GLOBALS['start']['config']->frameworkConfig['loginTypes'])) {
                 $this->data['body']['loginTypes'] = $GLOBALS['start']['config']->frameworkConfig['loginTypes'];
+            }
+
+            if($this->hookClass) {
+                $this->hookClass->process($this);
             }
             
             if(isset($_POST['action'])) {
@@ -32,7 +41,11 @@
 
                     $GLOBALS['db']['orm']->persist($user);
                     $GLOBALS['db']['orm']->flush();
-                    
+
+                    if($this->hookClass) {
+                        $this->hookClass->postNewUser($user);
+                    }
+
                     $this->helper->redirect('usuario,lista');
                 }
             }
@@ -50,9 +63,13 @@
         public function processEdit() {
             $this->page = 'usuario/form';
             $this->helper->isAllowedUser(array('admin'));
-            
+
             if(is_array($GLOBALS['start']['config']->frameworkConfig['loginTypes'])) {
                 $this->data['body']['loginTypes'] = $GLOBALS['start']['config']->frameworkConfig['loginTypes'];
+            }
+
+            if($this->hookClass) {
+                $this->hookClass->process($this);
             }
             
             $user = $this->data['body']['users'] = $GLOBALS['db']['orm']->getRepository('StartInterativa\StartFramework\Model\ORM\StartUser')->findOneBy(array('id' => $_GET['id']));
@@ -71,6 +88,10 @@
                 
                 $GLOBALS['db']['orm']->merge($user);
                 $GLOBALS['db']['orm']->flush();
+
+                if($this->hookClass) {
+                    $this->hookClass->postUpdateUser($user);
+                }
             }
             
             $this->data['body']['user'] = $user;
