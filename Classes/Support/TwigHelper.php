@@ -59,6 +59,10 @@
             }
             return $file_path . '?' . $change_date;
         }
+
+        public function isFeatureEnabled($featureKey) {
+            return $this->helper->isFeatureEnabled($featureKey);
+        }
     
         public function getFunctions()
         {
@@ -71,7 +75,9 @@
                 new \Twig_SimpleFunction('getUsername', array($this, 'getUsername'), array('needs_context' => false)),
                 new \Twig_SimpleFunction('getUserPicture', array($this, 'getUserPicture'), array('needs_context' => false)),
                 new \Twig_SimpleFunction('format_real', array($this, 'format_real'), array('needs_context' => false)),
-                new \Twig_SimpleFunction('getFileModifiedDate', array($this, 'getFileModifiedDate'), array('needs_context' => false))
+                new \Twig_SimpleFunction('getFileModifiedDate', array($this, 'getFileModifiedDate'), array('needs_context' => false)),
+                new \Twig_SimpleFunction('isFeatureEnabled', array($this, 'isFeatureEnabled'), array('needs_context' => false)),
+
     	    );
         }
 
