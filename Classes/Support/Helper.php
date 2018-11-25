@@ -380,6 +380,13 @@
                     return "Deletada";
             }
         }
+
+        public function isFeatureEnabled($featureKey) {
+            if(isset($GLOBALS['start']['config']->localConfig['features'][$featureKey])) {
+                return $GLOBALS['start']['config']->localConfig['features'][$featureKey];
+            }
+            return false;
+        }
     
     }
 ?>
