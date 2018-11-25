@@ -92,6 +92,8 @@
                 if($this->hookClass) {
                     $this->hookClass->postUpdateUser($user);
                 }
+
+                $this->helper->redirect('usuario');
             }
             
             $this->data['body']['user'] = $user;
