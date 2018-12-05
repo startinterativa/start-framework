@@ -76,7 +76,11 @@
                 setcookie('alert', '', time()-3600, '/');
             }
 
-            $data['header']['base'] = $this->helper->getServerProtocol() . $_SERVER['SERVER_NAME'];
+            if(isset($GLOBALS['start']['config']->localConfig['baseUrl'])) {
+                $data['header']['base'] = $GLOBALS['start']['config']->localConfig['baseUrl'];
+            } else {
+                $data['header']['base'] = $this->helper->getServerProtocol() . $_SERVER['SERVER_NAME'];
+            }
             
             if (class_exists('\\Controller\\SpecificController')) {
                 $specificController = new \Controller\SpecificController();
