@@ -76,11 +76,7 @@
                 setcookie('alert', '', time()-3600, '/');
             }
 
-            if(isset($GLOBALS['start']['config']->localConfig['base_url'])) {
-                $data['header']['base'] = $GLOBALS['start']['config']->localConfig['base_url'];
-            } else {
-                $data['header']['base'] = $this->helper->getServerProtocol() . $_SERVER['SERVER_NAME'];
-            }
+            $data['header']['base'] = $this->helper->getBaseUrl();
             
             if (class_exists('\\Controller\\SpecificController')) {
                 $specificController = new \Controller\SpecificController();

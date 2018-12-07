@@ -270,7 +270,10 @@
         }
 
         public function getBaseUrl() {
-            return self::getServerProtocol() . $_SERVER['SERVER_NAME'];
+            if(isset($GLOBALS['start']['config']->localConfig['base_url'])) {
+                return $GLOBALS['start']['config']->localConfig['base_url'];
+            } 
+            return $this->getServerProtocol() . $_SERVER['SERVER_NAME'];
         }
 
         public function addCookie($key, $value) {
