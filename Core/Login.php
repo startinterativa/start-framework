@@ -70,7 +70,6 @@
             $this->data['header']['title'] = "Start Post - Login";
 
             $data['header']['base'] = $this->helper->getBaseUrl();
-            var_dump($data['header']['base']);die;
 
             $this->data['body'] = array();
             if (isset($_GET['route']) AND $_GET['route'] == 'loginIncorreto') {
