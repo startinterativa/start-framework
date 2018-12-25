@@ -36,6 +36,11 @@
 
         public function sendEmail($subject, $content, $template, $to, $name) {
             $this->mail->ClearAllRecipients();
+
+            if($GLOBALS['start']['config']->localConfig['env'] != 'prod') {
+                $to = $GLOBALS['start']['config']->localConfig['mail']['developer'];
+            }
+
             $this->mail->addAddress($to, $name);
 
             $body['html'] = self::loadTemplate($template, $content);
