@@ -49,16 +49,18 @@
                 $queryString = 'loginIncorreto';
                 $status = 0;
             }
-            $this->helper->log(
-                array(
-                    'type' => 'session',
-                    'action' => 'login',
-                    'message' => $message,
-                    'status' => $status,
-                    'tablename' => '',
-                    'foreign_id' => 0
-                )
-            );
+            if(!$login->hideLogin) {
+                $this->helper->log(
+                    array(
+                        'type' => 'session',
+                        'action' => 'login',
+                        'message' => $message,
+                        'status' => $status,
+                        'tablename' => '',
+                        'foreign_id' => 0
+                    )
+                );
+            }
             if($this->requestUrl) {
                 $queryString = $this->requestUrl;
             }
