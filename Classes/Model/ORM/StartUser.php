@@ -48,6 +48,11 @@ class StartUser
      * @Column(type="integer", name="lastLogin", options={"default" : 0})
      */
     var $lastLogin = 0;
+
+    /**
+     * @Column(type="integer", name="hideLogin", options={"default" : 0})
+     */
+    var $hideLogin = 0;
     
     /**
      * @Column(type="integer", name="crdate")
