@@ -16,9 +16,13 @@
         public function login() {
             if(!$this->isLogged()) { //NÃO TA LOGADO
                 $this->requestUrl = $this->helper->getCurrentUrl();
+                
+                $result = false;
                 if (isset($_POST['usuario']) AND isset($_POST['senha'])) { //CHAMANDO O MODEL PARA LOGAR
-                    $this->initSession();
-                } else { //FAZENDO LOGIN NA VIEW
+                    $result = $this->initSession();
+                }
+
+                if(!$result) { //FAZENDO LOGIN NA VIEW
                     $this->processLogin();
                     $this->helper->renderPage($this);
                     return false;
@@ -38,18 +42,22 @@
             $startUserRepository = $GLOBALS['db']['orm']->getRepository('StartInterativa\StartFramework\Model\ORM\StartUser');
             
             $login = $startUserRepository->login($_POST['usuario'], $_POST['senha']);
-            $queryString = null;
+            $log = true;
+
             if($login) {
                 $_SESSION['login'] = get_object_vars($login);
                 $_SESSION['login']['status'] = 1;
                 $message = "Login com sucesso";
                 $status = 1;
+                $log = !$login->hideLogin;
             } else {
-                $message = "Login incorreto: " . $_POST['usuario'];
-                $queryString = 'loginIncorreto';
+                http_response_code(401);
+                $this->alert(false, "Login Incorreto", "Tente novamente");
+                $message = "Tentativa de login Incorreto: " . $_POST['usuario'];
                 $status = 0;
             }
-            if(!$login->hideLogin) {
+
+            if($log) {
                 $this->helper->log(
                     array(
                         'type' => 'session',
@@ -61,10 +69,8 @@
                     )
                 );
             }
-            if($this->requestUrl) {
-                $queryString = $this->requestUrl;
-            }
-            $this->helper->redirect($queryString);
+
+            return boolval($status);
         }
 
         public function processLogin() {
