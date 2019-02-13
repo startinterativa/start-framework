@@ -1,10 +1,16 @@
 {
     "name": "startinterativa/start-php-framework",
-    "authors": [{
-        "name": "Vitor Marcelino",
-        "email": "vitormarcelino93@gmail.com"
-    }],
+    "authors": [
+        {
+            "name": "Vitor Marcelino",
+            "email": "vitormarcelino93@gmail.com"
+        }
+    ],
     "require": {
+        "symfony/routing": "^3.4",
+        "symfony/http-foundation": "^3.4",
+        "symfony/yaml": "^3.4",
+        "symfony/config": "^3.4",
         "twig/twig": "~2.0",
         "phpmailer/phpmailer": "^5.2",
         "doctrine/orm": "v2.5.14",
