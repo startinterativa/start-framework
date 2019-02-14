@@ -15,7 +15,7 @@
             }
         }
 
-        public function processNewUsuario() {
+        public function new() {
             $this->page = 'usuario/form';
             $this->helper->isAllowedUser(array('admin'));
             
@@ -52,7 +52,7 @@
 
         }
 
-        public function processListUsuarios() {
+        public function list() {
             $this->page = 'usuario/list';
             $this->helper->isAllowedUser(array('admin'));
             
@@ -60,7 +60,7 @@
 
         }
         
-        public function processEdit() {
+        public function edit() {
             $this->page = 'usuario/form';
             $this->helper->isAllowedUser(array('admin'));
 
