@@ -13,7 +13,7 @@
         var $header;
         var $footer;
         var $page;
-        var $params;
+        var $parameters;
 
         function __construct() {
             $this->helper = \StartInterativa\StartFramework\Support\Helper::getInstance();
@@ -32,7 +32,6 @@
         }
 
         public function process($method) {
-            $this->configure();
             
             if(!empty($method)) {
                 if(method_exists($this, $method)) {
@@ -132,17 +131,6 @@
 
         public function addCSS($path, $comment = false) {
             $this->data['header']['css'][] = array("path" => $path, "comment" => $comment);
-        }
-        
-        private function configure() {
-            if(is_array($this->params)) {
-                foreach ($this->params as $param) {
-                    $this->config[$param] = null;
-                    if(isset($_GET[$param])) {
-                        $this->config[$param] = $_GET[$param];
-                    }
-                }
-            }
         }
 
     }

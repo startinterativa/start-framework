@@ -1,0 +1,17 @@
+logs:
+    path:     /logs
+    defaults: { controller: 'StartInterativa\StartFramework\Controller\Logs::list' }
+
+usuarios:
+    path:     /usuarios
+    defaults: { controller: 'StartInterativa\StartFramework\Controller\Usuario::list' }
+
+usuario_novo:
+    path:     /usuario/novo
+    defaults: { controller: 'StartInterativa\StartFramework\Controller\Usuario::new' }
+
+usuario_editar:
+    path:     /usuario/editar/{id}
+    defaults: { controller: 'StartInterativa\StartFramework\Controller\Usuario::edit' }
+    requirements:
+        id: '[0-9]+'

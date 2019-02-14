@@ -9,7 +9,7 @@
             $this->methods = ["lista"=>"processListLogs"];
         }
 
-        public function processListLogs() {
+        public function list() {
             $this->page = 'logs/lista';
             $this->helper->isAllowedUser(array('admin'));
 
