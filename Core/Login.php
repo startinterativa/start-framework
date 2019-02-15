@@ -31,6 +31,13 @@
             return true;
         }
 
+        public function logout() {
+            session_unset();
+            ob_end_clean();
+            $this->helper->redirect();
+            exit();
+        }
+
         public function isLogged() {
             if (!isset($_SESSION['login']['status'])) {
                 return false;
