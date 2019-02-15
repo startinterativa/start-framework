@@ -15,3 +15,7 @@ usuario_editar:
     defaults: { controller: 'StartInterativa\StartFramework\Controller\Usuario::edit' }
     requirements:
         id: '[0-9]+'
+
+logout:
+    path:     /logout
+    defaults: { controller: 'StartInterativa\StartFramework\Core\Login::logout' }
