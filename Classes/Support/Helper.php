@@ -394,7 +394,7 @@
         public function writeCacheFile($cacheDir, $filename, $content) {
             $cacheDir = SITEROOT . "cache/{$cacheDir}/";
             if(!is_dir($cacheDir)) {
-                mkdir_r($cacheDir);
+                $this->mkdir_r($cacheDir);
             }
     
             $cacheFile = $cacheDir . $filename;
