@@ -390,6 +390,31 @@
             }
             return false;
         }
+
+        public function writeCacheFile($cacheDir, $filename, $content) {
+            $cacheDir = SITEROOT . "cache/{$cacheDir}/";
+            if(!is_dir($cacheDir)) {
+                mkdir_r($cacheDir);
+            }
+    
+            $cacheFile = $cacheDir . $filename;
+    
+            if(is_file($cacheFile)) {
+                rename($cacheFile, $cacheFile . "_" . time());
+            }
+    
+            return file_put_contents($cacheFile, json_encode($content, true));
+        }
+    
+        public function mkdir_r($dirName, $rights=0755){
+            $dirs = explode('/', $dirName);
+            $dir='';
+            foreach ($dirs as $part) {
+                $dir.=$part.'/';
+                if (!is_dir($dir) && strlen($dir)>0)
+                    mkdir($dir, $rights);
+            }
+        }
     
     }
 ?>
