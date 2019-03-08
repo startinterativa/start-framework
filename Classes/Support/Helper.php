@@ -104,7 +104,7 @@
 
                 if(!is_file($thumb)) {
                     try {
-                        $image = new \Eventviva\ImageResize($explodedImg[0]);
+                        $image = new \Gumlet\ImageResize($explodedImg[0]);
                         $image->resizeToWidth(300);
                         $ret = $image->save($thumb);
                     } catch(Exception $e) {
