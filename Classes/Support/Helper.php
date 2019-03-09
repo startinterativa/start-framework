@@ -104,7 +104,7 @@
 
                 if(!is_file($thumb)) {
                     try {
-                        $image = new \Eventviva\ImageResize($explodedImg[0]);
+                        $image = new \Gumlet\ImageResize($explodedImg[0]);
                         $image->resizeToWidth(300);
                         $ret = $image->save($thumb);
                     } catch(Exception $e) {
@@ -389,6 +389,31 @@
                 return $GLOBALS['start']['config']->localConfig['features'][$featureKey];
             }
             return false;
+        }
+
+        public function writeCacheFile($cacheDir, $filename, $content) {
+            $cacheDir = SITEROOT . "cache/{$cacheDir}/";
+            if(!is_dir($cacheDir)) {
+                $this->mkdir_r($cacheDir);
+            }
+    
+            $cacheFile = $cacheDir . $filename;
+    
+            if(is_file($cacheFile)) {
+                rename($cacheFile, $cacheFile . "_" . time());
+            }
+    
+            return file_put_contents($cacheFile, json_encode($content, true));
+        }
+    
+        public function mkdir_r($dirName, $rights=0755){
+            $dirs = explode('/', $dirName);
+            $dir='';
+            foreach ($dirs as $part) {
+                $dir.=$part.'/';
+                if (!is_dir($dir) && strlen($dir)>0)
+                    mkdir($dir, $rights);
+            }
         }
     
     }
