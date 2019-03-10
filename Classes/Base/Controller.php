@@ -64,41 +64,37 @@
         }
 
         private function processBasicData() {
-            $data = array();
-            $data['header'] = array();
-            $data['body'] = array();
-            $data['footer'] = array();
+            $this->data = array();
+            $this->data['header'] = array();
+            $this->data['body'] = array();
+            $this->data['footer'] = array();
 
-            if(isset($_COOKIE['alert']) && $_COOKIE['alert'] != '') {
-                $data['header']['alert'] = unserialize($_COOKIE['alert']);
+            if(isset($_COOKIE['alert']) && $_COOKIE['alert'] != '' && !($this instanceof \StartInterativa\StartFramework\Core\Login)) {
+                $this->data['header']['alert'] = unserialize($_COOKIE['alert']);
                 unset($_COOKIE['alert']);
                 setcookie('alert', '', time()-3600, '/');
             }
 
-            $data['header']['base'] = $this->helper->getBaseUrl();
+            $this->data['header']['base'] = $this->helper->getBaseUrl();
             
             if (class_exists('\\Controller\\SpecificController')) {
                 $specificController = new \Controller\SpecificController();
                 $specificController->helper = $this->helper;
-                $specificController->processBasicData($data);
+                $specificController->processBasicData($this->data);
             }
             
-            $data['footer']['version'] = $this->helper->getProjectVersion();
+            $this->data['footer']['version'] = $this->helper->getProjectVersion();
             
             if (!isset($_SESSION['login'])) {
-                $this->data = $data;
                 return;
             }
             
-            $data['header']['login'] = $_SESSION['login'];
+            $this->data['header']['login'] = $_SESSION['login'];
             
             // Adiciona o tipo de login ao data body
             if (isset($_SESSION['login'])) {
                 $this->data['body']['login']['type'] = $_SESSION['login']['type'];
             }
-            
-
-            $this->data = $data;
         }
 
         private function getConfigProvider() {
@@ -118,8 +114,8 @@
         }
 
         public function alert($tipo, $titulo, $texto) {
-            if($tipo == true) $tipo = 'success';
-            if($tipo == false) $tipo = 'error';
+            if($tipo === true) $tipo = 'success';
+            if($tipo === false) $tipo = 'error';
             $this->data['header']['alert']['tipo'] = $tipo;
             $this->data['header']['alert']['titulo'] = $titulo;
             $this->data['header']['alert']['texto'] = $texto;
