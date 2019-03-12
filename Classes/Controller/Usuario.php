@@ -7,8 +7,6 @@
 
         function __construct() {
             parent::__construct();
-            $this->defaultAction = "processListUsuarios";
-            $this->methods = ["novo"=>"processNewUsuario", "lista"=>"processListUsuarios", "editar"=>"processEdit"];
 
             if(class_exists('\Hooks\StartUser')) {
                 $this->hookClass = new \Hooks\StartUser();
@@ -46,7 +44,7 @@
                         $this->hookClass->postNewUser($user);
                     }
 
-                    $this->helper->redirect('usuario,lista');
+                    $this->helper->redirect('usuarios');
                 }
             }
 
