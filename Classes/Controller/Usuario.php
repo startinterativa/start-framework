@@ -70,7 +70,7 @@
                 $this->hookClass->process($this);
             }
             
-            $user = $this->data['body']['users'] = $GLOBALS['db']['orm']->getRepository('StartInterativa\StartFramework\Model\ORM\StartUser')->findOneBy(array('id' => $_GET['id']));
+            $user = $this->data['body']['users'] = $GLOBALS['db']['orm']->getRepository('StartInterativa\StartFramework\Model\ORM\StartUser')->findOneBy(array('id' => $this->parameters['id']));
             
             if(isset($_POST['action']) && $_POST['action'] == 'update') {
                 
