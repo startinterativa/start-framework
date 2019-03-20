@@ -13,6 +13,7 @@
         "symfony/config": "^3.4",
         "twig/twig": "~2.0",
         "phpmailer/phpmailer": "^5.2",
+        "dompdf/dompdf": "^0.8.2",
         "doctrine/orm": "v2.5.14",
         "sentry/sentry": "^1.9"
     },

@@ -17,15 +17,14 @@
 
         function __construct() {
             $this->helper = \StartInterativa\StartFramework\Support\Helper::getInstance();
-            $daoClasses = $GLOBALS['start']['config']->frameworkConfig['Classes']['DAO'];
             $this->type = 'html';
             $this->header = $GLOBALS['start']['config']->frameworkConfig['template']['defaultHeader'];
             $this->footer = $GLOBALS['start']['config']->frameworkConfig['template']['defaultFooter'];
             $this->dao = array();
             $this->processBasicData();
 
-            if(isset($daoClasses)) {
-                foreach ($daoClasses as $dao => $namespace) {
+            if(isset($GLOBALS['start']['config']->frameworkConfig['Classes']['DAO'])) {
+                foreach ($GLOBALS['start']['config']->frameworkConfig['Classes']['DAO'] as $dao => $namespace) {
                     $this->dao[$dao] = $namespace::getInstance();
                 }
             }
