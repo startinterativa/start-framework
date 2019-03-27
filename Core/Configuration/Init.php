@@ -1,6 +1,10 @@
 <?php
     namespace StartInterativa\StartFramework\Core\Configuration;
 
+    use \StartInterativa\StartFramework\Core\Database;
+    use \StartInterativa\StartFramework\Core\Route;
+    use \StartInterativa\StartFramework\Core\Login;
+
     class Init {
         
         var $frameworkConfig;
@@ -20,9 +24,9 @@
             
         public function config() {
             setlocale(LC_TIME, 'pt_BR', 'pt_BR.utf-8', 'pt_BR.utf-8', 'portuguese');
-            $GLOBALS['db']['conexao'] = \StartInterativa\StartFramework\Core\Database::conexao($this->localConfig['db']);
+            $GLOBALS['db']['conexao'] = Database::connect($this->localConfig['db']);
             
-            $GLOBALS['db']['orm'] = \StartInterativa\StartFramework\Core\Database::orm($this->localConfig['db']);;
+            $GLOBALS['db']['orm'] = Database::orm($this->localConfig['db']);;
             
             header('Content-Type: text/html; charset=utf-8');
             
@@ -53,11 +57,11 @@
         
         public function execute() {
             if(isset($this->frameworkConfig['loginRequired']) && $this->frameworkConfig['loginRequired'] ==  true) {
-                $login = new \StartInterativa\StartFramework\Core\Login();
+                $login = new Login();
                 $success = $login->login();
             }
             if($success || !$this->frameworkConfig['loginRequired']) {
-                \StartInterativa\StartFramework\Core\Route::route();
+                Route::route();
             }
             
         }

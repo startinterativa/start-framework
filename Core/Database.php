@@ -1,12 +1,16 @@
 <?php
     namespace StartInterativa\StartFramework\Core;
+
+    use \Doctrine\ORM\Tools\Setup;
+    use \Doctrine\ORM\EntityManager;
+    
     class Database {
 
         private function __construct () {
 
         }
 
-        public static function conexao ($db) {
+        public static function connect($db) {
             try {
                 $db = new \PDO("mysql:host=".$db['host'].";dbname=".$db['dbname'].";charset=utf8mb4", $db['user'], $db['password']) or die("Não foi possível conectar com o servidor de dados!");
             } catch (exception $e) {
@@ -26,8 +30,8 @@
             $db['driver'] = 'pdo_mysql';
             $db['charset'] = 'utf8mb4';
             
-            $config = \Doctrine\ORM\Tools\Setup::createAnnotationMetadataConfiguration($entities, $isDevMode);
-            $entityManager = \Doctrine\ORM\EntityManager::create($db, $config);
+            $config = Setup::createAnnotationMetadataConfiguration($entities, $isDevMode);
+            $entityManager = EntityManager::create($db, $config);
 
             return $entityManager;
         }
