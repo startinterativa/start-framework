@@ -74,6 +74,10 @@
                 setcookie('alert', '', time()-3600, '/');
             }
 
+            if(isset($GLOBALS['start']['config']->localConfig['project_name'])) {
+                $this->data['header']['title'] = $GLOBALS['start']['config']->localConfig['project_name'];
+            }
+
             $this->data['header']['base'] = $this->helper->getBaseUrl();
             
             if (class_exists('\\Controller\\SpecificController')) {
