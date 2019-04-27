@@ -43,6 +43,11 @@ class StartUser
     * @Column(type="text", name="image")
     */
     var $image;
+
+    /**
+    * @Column(type="text", name="config")
+    */
+    var $config;
     
     /**
      * @Column(type="integer", name="lastLogin", options={"default" : 0})

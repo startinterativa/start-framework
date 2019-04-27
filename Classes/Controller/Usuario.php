@@ -36,6 +36,7 @@
                     $user->email = $_POST['email'];
                     $user->image = $_POST['pathImagem'];
                     $user->crdate = time();
+                    $user->config = "[]";
 
                     $GLOBALS['db']['orm']->persist($user);
                     $GLOBALS['db']['orm']->flush();
@@ -70,8 +71,8 @@
                 $this->hookClass->process($this);
             }
             
-            $user = $this->data['body']['users'] = $GLOBALS['db']['orm']->getRepository('StartInterativa\StartFramework\Model\ORM\StartUser')->findOneBy(array('id' => $this->parameters['id']));
-            
+            $user = $GLOBALS['db']['orm']->getRepository('StartInterativa\StartFramework\Model\ORM\StartUser')->get($this->parameters['id']);
+
             if(isset($_POST['action']) && $_POST['action'] == 'update') {
                 
                 $user->username = $_POST['username'];
