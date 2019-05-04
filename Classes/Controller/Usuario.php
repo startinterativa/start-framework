@@ -36,7 +36,7 @@
                     $user->email = $_POST['email'];
                     $user->image = $_POST['pathImagem'];
                     $user->crdate = time();
-                    $user->config = "[]";
+                    $user->config = "{}";
 
                     $GLOBALS['db']['orm']->persist($user);
                     $GLOBALS['db']['orm']->flush();
@@ -77,7 +77,7 @@
                 
                 $user->username = $_POST['username'];
                 
-                if(!empty($_POST['password']) && ($_POST['password'] == $_POST['password_confirm'])) {
+                if(!empty($_POST['password']) && ($_POST['password'] == $_POST['password_confirm'])){
                     $user->password = crypt($_POST['password'], '');
                 }
                 
