@@ -82,15 +82,15 @@
 
         public function processLogin() {
             $this->page = 'general/login';
-            $this->data['header']['title'] = "Start Post - Login";
+            $this->data['title'] = "Start Post - Login";
 
             $data['header']['base'] = $this->helper->getBaseUrl();
 
-            $this->data['body'] = array();
+            $this->data = array();
             if (isset($_GET['route']) AND $_GET['route'] == 'loginIncorreto') {
-                $this->data['body']['alert']['tipo'] = 'danger';
-                $this->data['body']['alert']['titulo'] = 'Acesso não permitido!';
-                $this->data['body']['alert']['texto'] = 'Login Incorreto';
+                $this->data['alert']['tipo'] = 'danger';
+                $this->data['alert']['titulo'] = 'Acesso não permitido!';
+                $this->data['alert']['texto'] = 'Login Incorreto';
             }
         }
     }

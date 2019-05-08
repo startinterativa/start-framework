@@ -13,7 +13,7 @@
             $this->page = 'logs/lista';
             $this->helper->isAllowedUser(array('admin'));
 
-            $this->data['body']['logs'] = $GLOBALS['db']['orm']->getRepository('StartInterativa\StartFramework\Model\ORM\StartLog')->findBy(array(), array('datetime' => 'DESC'), 100);;
+            $this->data['logs'] = $GLOBALS['db']['orm']->getRepository('StartInterativa\StartFramework\Model\ORM\StartLog')->findBy(array(), array('datetime' => 'DESC'), 100);;
         }
         
     }

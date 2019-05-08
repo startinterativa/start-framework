@@ -18,7 +18,7 @@
             $this->helper->isAllowedUser(array('admin'));
             
             if(is_array($GLOBALS['start']['config']->frameworkConfig['loginTypes'])) {
-                $this->data['body']['loginTypes'] = $GLOBALS['start']['config']->frameworkConfig['loginTypes'];
+                $this->data['loginTypes'] = $GLOBALS['start']['config']->frameworkConfig['loginTypes'];
             }
 
             if($this->hookClass) {
@@ -55,7 +55,7 @@
             $this->page = 'usuario/list';
             $this->helper->isAllowedUser(array('admin'));
             
-            $this->data['body']['users'] = $GLOBALS['db']['orm']->getRepository('StartInterativa\StartFramework\Model\ORM\StartUser')->findAll();
+            $this->data['users'] = $GLOBALS['db']['orm']->getRepository('StartInterativa\StartFramework\Model\ORM\StartUser')->findAll();
 
         }
         
@@ -64,7 +64,7 @@
             $this->helper->isAllowedUser(array('admin'));
 
             if(is_array($GLOBALS['start']['config']->frameworkConfig['loginTypes'])) {
-                $this->data['body']['loginTypes'] = $GLOBALS['start']['config']->frameworkConfig['loginTypes'];
+                $this->data['loginTypes'] = $GLOBALS['start']['config']->frameworkConfig['loginTypes'];
             }
 
             if($this->hookClass) {
@@ -95,7 +95,7 @@
                 $this->helper->redirect('usuarios');
             }
             
-            $this->data['body']['user'] = $user;
+            $this->data['user'] = $user;
         }
 }
 
