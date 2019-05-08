@@ -27,7 +27,7 @@ class StartUserRepository extends EntityRepository {
     }
 
     private function postProcess(StartUser $user) {
-        if($user->config) {
+        if($user->config && !is_string($user->config)) {
             $user->config = get_object_vars($user->config);
         }
         return $user;
