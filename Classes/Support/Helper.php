@@ -219,9 +219,7 @@
             if ($controller->type == 'pdf') {
                 $this->renderPDF($controller->page, $controller->data);
             } else {
-                $this->renderHeader($controller->header, $controller->data['header']);
-                $this->render($controller->page, $controller->data['body']);
-                $this->render($controller->footer, $controller->data['footer']);
+                $this->render($controller->page, $controller->data);
             }
         }
         

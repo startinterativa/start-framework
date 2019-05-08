@@ -23,6 +23,7 @@
             $this->dao = array();
             $this->processBasicData();
 
+            // Deprecated 
             if(isset($GLOBALS['start']['config']->frameworkConfig['Classes']['DAO'])) {
                 foreach ($GLOBALS['start']['config']->frameworkConfig['Classes']['DAO'] as $dao => $namespace) {
                     $this->dao[$dao] = $namespace::getInstance();
@@ -64,21 +65,18 @@
 
         private function processBasicData() {
             $this->data = array();
-            $this->data['header'] = array();
-            $this->data['body'] = array();
-            $this->data['footer'] = array();
 
             if(isset($_COOKIE['alert']) && $_COOKIE['alert'] != '' && !($this instanceof \StartInterativa\StartFramework\Core\Login)) {
-                $this->data['header']['alert'] = unserialize($_COOKIE['alert']);
+                $this->data['alert'] = unserialize($_COOKIE['alert']);
                 unset($_COOKIE['alert']);
                 setcookie('alert', '', time()-3600, '/');
             }
 
             if(isset($GLOBALS['start']['config']->localConfig['project_name'])) {
-                $this->data['header']['title'] = $GLOBALS['start']['config']->localConfig['project_name'];
+                $this->data['title'] = $GLOBALS['start']['config']->localConfig['project_name'];
             }
 
-            $this->data['header']['base'] = $this->helper->getBaseUrl();
+            $this->data['base'] = $this->helper->getBaseUrl();
             
             if (class_exists('\\Controller\\SpecificController')) {
                 $specificController = new \Controller\SpecificController();
@@ -86,50 +84,36 @@
                 $specificController->processBasicData($this->data);
             }
             
-            $this->data['footer']['version'] = $this->helper->getProjectVersion();
+            $this->data['version'] = $this->helper->getProjectVersion();
             
             if (!isset($_SESSION['login'])) {
                 return;
             }
             
-            $this->data['header']['login'] = $_SESSION['login'];
+            $this->data['login'] = $_SESSION['login'];
             
             // Adiciona o tipo de login ao data body
             if (isset($_SESSION['login'])) {
-                $this->data['body']['login']['type'] = $_SESSION['login']['type'];
+                $this->data['login']['type'] = $_SESSION['login']['type'];
             }
-        }
-
-        private function getConfigProvider() {
-            $data['id'] = isset($_GET['id']) ? $_GET['id'] : null;
-
-            if(isset($_SESSION['login']['type']) && !$this->helper->isNotUser()) {
-                $data['id'] = $_SESSION['login']['id'];
-            }
-
-            $data['postagem'] = isset($_GET['postagem']) ? $_GET['postagem'] : null;
-            $data['filtro'] = isset($_GET['filtro']) ? $_GET['filtro'] : null;
-            $data['periodo'] = isset($_GET['periodo']) ? $_GET['periodo'] : null;
-            $data['limit'] = isset($_GET['limit']) ? $_GET['limit'] : null;
-
-            $data['group'] = null;
-            return $data;
         }
 
         public function alert($tipo, $titulo, $texto) {
             if($tipo === true) $tipo = 'success';
             if($tipo === false) $tipo = 'error';
-            $this->data['header']['alert']['tipo'] = $tipo;
-            $this->data['header']['alert']['titulo'] = $titulo;
-            $this->data['header']['alert']['texto'] = $texto;
+            $this->data['alert']['tipo'] = $tipo;
+            $this->data['alert']['titulo'] = $titulo;
+            $this->data['alert']['texto'] = $texto;
         }
 
+        // Deprecated
         public function addScript($path, $comment = false) {
-            $this->data['footer']['scripts'][] = array("path" => $path, "comment" => $comment);
+            $this->data['scripts'][] = array("path" => $path, "comment" => $comment);
         }
 
+        // Deprecated
         public function addCSS($path, $comment = false) {
-            $this->data['header']['css'][] = array("path" => $path, "comment" => $comment);
+            $this->data['css'][] = array("path" => $path, "comment" => $comment);
         }
 
     }
