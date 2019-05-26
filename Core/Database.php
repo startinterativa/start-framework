@@ -3,6 +3,7 @@
 
     use \Doctrine\ORM\Tools\Setup;
     use \Doctrine\ORM\EntityManager;
+    use \Doctrine\Common\Proxy\AbstractProxyFactory;
     
     class Database {
 
@@ -31,6 +32,7 @@
             $db['charset'] = 'utf8mb4';
             
             $config = Setup::createAnnotationMetadataConfiguration($entities, $isDevMode);
+	    $config->setAutoGenerateProxyClasses(AbstractProxyFactory::AUTOGENERATE_FILE_NOT_EXISTS);
             $entityManager = EntityManager::create($db, $config);
 
             return $entityManager;
