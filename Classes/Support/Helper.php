@@ -225,7 +225,7 @@
         
         public function renderPDF($template, $data) {
             $dompdf = new \Dompdf\Dompdf();
-            $html = self::processHTML($template, $data['body']);
+            $html = self::processHTML($template, $data);
             $dompdf->loadHtml($html);
             $dompdf->render();
             $dompdf->stream("dompdf_out.pdf", array("Attachment" => false));
