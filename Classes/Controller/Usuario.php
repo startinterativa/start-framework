@@ -94,6 +94,8 @@
 
                 $this->helper->redirect('usuarios');
             }
+
+            $user->config = json_decode($user->config);
             
             $this->data['user'] = $user;
         }
