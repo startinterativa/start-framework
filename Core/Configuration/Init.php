@@ -9,6 +9,7 @@
         
         var $frameworkConfig;
         var $localConfig;
+        var $project_version;
         
         public function __construct() {
             if(!defined('SITEROOT')) {
@@ -19,6 +20,9 @@
             
             $localConfig = file_get_contents(SITEROOT.'/LocalConfig.json');
             $this->localConfig = json_decode($localConfig, true);
+
+            $composer = json_decode(file_get_contents(SITEROOT.'/composer.json'), true);
+            $this->project_version = $composer['version'];
         }
         
             
@@ -36,9 +40,11 @@
                 ini_set("log_errors", 1);
                 ini_set("error_log", SITEROOT . "/php-error.log");
             }
-
+            
             if(isset($GLOBALS['start']['config']->localConfig['env']) && $this->localConfig['env'] == 'prod' && isset($GLOBALS['start']['config']->localConfig['sentry_url'])) {
                 $client = new \Raven_Client($GLOBALS['start']['config']->localConfig['sentry_url']);
+                $client->user_context($this->getSentryContext());
+
                 $error_handler = new \Raven_ErrorHandler($client);
                 $error_handler->registerExceptionHandler();
                 $error_handler->registerErrorHandler();
@@ -53,6 +59,20 @@
                 session_start();
                 ob_start();
             }
+        }
+
+        private function getSentryContext() {
+            $context = array();
+
+            if ($GLOBALS['start']['config']->localConfig['project_name']) {
+                $context['project_name'] = $GLOBALS['start']['config']->localConfig['project_name'];
+            }
+
+            if($this->project_version) {
+                $context['version'] = $this->project_version;
+            }
+
+            return $context;
         }
         
         public function execute() {
